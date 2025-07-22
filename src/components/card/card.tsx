@@ -1,3 +1,7 @@
 export const Card = () => {
-  return <></>;
+  return (
+    <>
+      <h1>uaaa</h1>
+    </>
+  );
 };
