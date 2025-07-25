@@ -1,7 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap");
 
 :root {
+  /* -----> Colors */
+
+  /* Green */
+  --color-green: hsla(98, 52%, 54%, 70%);
+
+  /* Neutrals */
+  --color-gray-800: hsla(206, 7%, 45%, 1);
+
+  /* Black */
+  --color-black: hsla(221, 39%, 11%, 1);
+
+  /* White */
+  --color-white: hsl(0, 0%, 100%);
+
+  /* -----> Font family */
   --font-primary: "Onest", sans-serif;
+
+  /* -----> Font size */
+  --font-14: 14px;
+  --font-16: 16px;
+
+  /* -----> Spacing */
+  --space-6: 6px;
+  --space-10: 10px;
 }
 
 * {
@@ -13,4 +36,7 @@
 body {
   font-family: var(--font-primary);
   background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
