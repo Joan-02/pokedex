@@ -1,18 +1,22 @@
-import bulbasur from "../../img/bulbasur.jpg";
+import bulbasur from "../../img/bulbasur.png";
 import "./Card.css";
 
 export const Card = () => {
   return (
-    <>
-      <div>
-        <div>
-          <img src={bulbasur} className="" alt="Image of the pokemon " />
-        </div>
-        <div>
-          <p className="pokemon_name">Bulbasur</p>
-          <div>
+    <div className="pokemon-card">
+      <div className="pokemon-card__image-container">
+        <img
+          src={bulbasur}
+          className="pokemon-card__image"
+          alt="Image of the pokemon"
+        />
+      </div>
+      <div className="pokemon-card__content">
+        <div className="pokemon-card__info">
+          <h3 className="pokemon-card__name">Bulbasur</h3>
+          <div className="pokemon-card__id-container">
             <svg
-              className="pokeball_icon"
+              className="pokemon-card__icon-pokeball"
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="21"
@@ -24,14 +28,14 @@ export const Card = () => {
                 fill="black"
               />
             </svg>
-            <p className="pokemon_number">234</p>
+            <p className="pokemon-card__number">234</p>
           </div>
         </div>
-        <div>
-          <p className="pokemon_type">Grass</p>
-          <p className="pokemon_type">Poission</p>
+        <div className="pokemon-card__types">
+          <p className="pokemon-card__type-badge">Grass</p>
+          <p className="pokemon-card__type-badge">Poission</p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
