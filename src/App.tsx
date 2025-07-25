@@ -1,10 +1,9 @@
 import "./App.css";
-import { Card } from "./components/card/card";
+import { Card } from "./components/card/Card";
 
 export const App = () => {
   return (
     <>
-      <h1>Mi Pokédex</h1>
       <Card />
     </>
   );

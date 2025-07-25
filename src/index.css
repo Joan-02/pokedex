@@ -1,7 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap");
 
 :root {
+  /* -----> Colors */
+  /* Neutrals */
+  --color-gray-800: hsla(206, 7%, 45%, 1);
+
+  /* Black */
+  --color-black: hsla(221, 39%, 11%, 1);
+
+  /* -----> Font family */
   --font-primary: "Onest", sans-serif;
+
+  /* -----> Font size */
+  --font-14: 14px;
+  --font-16: 16px;
 }
 
 * {
