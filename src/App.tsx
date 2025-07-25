@@ -1,10 +1,10 @@
 import "./App.css";
-import { Card } from "./components/card/Card";
+import { Home } from "./pages/home/home";
 
 export const App = () => {
   return (
     <>
-      <Card />
+      <Home />
     </>
   );
 };

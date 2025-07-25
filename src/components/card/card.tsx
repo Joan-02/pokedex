@@ -1,10 +1,13 @@
 import bulbasur from "../../img/bulbasur.png";
 import "./Card.css";
+import "../likeButton/likeButton";
+import { LikeButton } from "../likeButton/likeButton";
 
 export const Card = () => {
   return (
     <div className="pokemon-card">
       <div className="pokemon-card__image-container">
+        <LikeButton />
         <img
           src={bulbasur}
           className="pokemon-card__image"
