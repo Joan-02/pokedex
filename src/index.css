@@ -7,6 +7,7 @@
   --color-green: hsla(98, 52%, 54%, 70%);
 
   /* Neutrals */
+  --color-gray-200: hsla(195, 22%, 93%, 1);
   --color-gray-800: hsla(206, 7%, 45%, 1);
   --color-gray-900: hsla(204, 9%, 32%, 1);
 
@@ -24,8 +25,12 @@
   --font-16: 16px;
 
   /* -----> Spacing */
+  --space-4: 4px;
   --space-6: 6px;
   --space-10: 10px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-30: 30px;
 }
 
 * {
@@ -39,5 +44,22 @@ body {
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+/* --- RESET PARA BOTONES --- */
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+
+  border: none;
+  outline: none;
+
+  font-family: inherit;
+  font-size: var(--font-16);
+  color: inherit;
+
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
 }
