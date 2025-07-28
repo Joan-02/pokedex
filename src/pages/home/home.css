@@ -1,3 +1,9 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
 .header {
   height: 50px;
   display: flex;
@@ -38,4 +44,18 @@
   flex-direction: column;
   gap: var(--space-30);
   align-items: center;
+}
+
+.filter-buttons-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
