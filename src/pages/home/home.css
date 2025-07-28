@@ -44,6 +44,7 @@
   flex-direction: column;
   gap: var(--space-30);
   align-items: center;
+  margin-bottom: 50px;
 }
 
 .filter-buttons-wrapper {
@@ -58,4 +59,13 @@
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+@media (width > 722px) {
+  .grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+  }
 }
