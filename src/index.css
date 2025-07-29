@@ -23,6 +23,8 @@
   /* -----> Font size */
   --font-14: 14px;
   --font-16: 16px;
+  --font-18: 18px;
+  --font-24: 24px;
 
   /* -----> Spacing */
   --space-4: 4px;
@@ -31,6 +33,7 @@
   --space-16: 16px;
   --space-20: 20px;
   --space-30: 30px;
+  --space-40: 40px;
 }
 
 * {
