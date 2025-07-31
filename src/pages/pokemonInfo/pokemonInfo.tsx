@@ -61,10 +61,30 @@ export const PokemonInfo = () => {
             <span className="pokemon-info__pill">Prankster</span>
           </div>
         </div>
-        <div className="pokemon-info__section">
-          <h4 className="pokemon-info__section-title">Abilities</h4>
-          <div className="pokemon-info__pills-container">
-            <span className="pokemon-info__pill">Keen-eye</span>
+        <div className="pokemon-info__section-stats">
+          <div className="pokemon-info__stats">
+            <h4 className="pokemon-info__section-title">HP</h4>
+            <span className="pokemon-info__pill">60</span>
+          </div>
+          <div className="pokemon-info__stats">
+            <h4 className="pokemon-info__section-title">ATK</h4>
+            <span className="pokemon-info__pill">100</span>
+          </div>
+          <div className="pokemon-info__stats">
+            <h4 className="pokemon-info__section-title">DEF</h4>
+            <span className="pokemon-info__pill">6</span>
+          </div>
+          <div className="pokemon-info__stats">
+            <h4 className="pokemon-info__section-title">Sp.Atk</h4>
+            <span className="pokemon-info__pill">74</span>
+          </div>
+          <div className="pokemon-info__stats">
+            <h4 className="pokemon-info__section-title">Sp.Def</h4>
+            <span className="pokemon-info__pill">260</span>
+          </div>
+          <div className="pokemon-info__stats">
+            <h4 className="pokemon-info__section-title">SPD</h4>
+            <span className="pokemon-info__pill">12</span>
           </div>
         </div>
       </div>
