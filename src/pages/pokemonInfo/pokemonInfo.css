@@ -23,6 +23,16 @@
   height: 260px;
 }
 
+.back-button {
+  background: none;
+  border: none;
+  padding: 16px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  cursor: pointer;
+}
+
 .pokemon-info__body {
   display: flex;
   flex-direction: column;
@@ -61,13 +71,6 @@
   gap: 6px;
   width: 100%;
 }
-
-/* .pokemon-info__attribute {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  align-items: start;
-  gap: 20px;
-} */
 
 .pokemon-info__pills-container {
   display: flex;
@@ -111,5 +114,21 @@
 @media (height > 700px) {
   .pokemon-info__body {
     gap: var(--space-40);
+  }
+}
+
+@media (width > 1000px) {
+  .pokemon-info {
+    flex-direction: row;
+  }
+
+  .pokemon-info__header {
+    height: 100%;
+    width: 50%;
+  }
+
+  .pokemon-info__image {
+    width: 400px;
+    height: 400px;
   }
 }
