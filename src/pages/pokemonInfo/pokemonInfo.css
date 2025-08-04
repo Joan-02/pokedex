@@ -40,6 +40,7 @@
   padding-inline: 16px;
   justify-content: center;
   flex-grow: 1;
+  margin: auto;
 }
 
 .pokemon-info__identity {
@@ -109,6 +110,7 @@
 .pokemon-info__stats {
   display: flex;
   justify-content: space-between;
+  max-width: 150px;
 }
 
 @media (height > 700px) {
@@ -120,6 +122,12 @@
 @media (width > 1000px) {
   .pokemon-info {
     flex-direction: row;
+  }
+
+  .pokemon-info__body {
+    flex-grow: 0;
+    width: 650px;
+    padding: 50px;
   }
 
   .pokemon-info__header {
