@@ -1,22 +1,35 @@
-import bulbasur from "../../img/bulbasur.png";
 import "./Card.css";
 import "../likeButton/likeButton";
 import { LikeButton } from "../likeButton/likeButton";
+import type { PokemonListItem } from "../../types/pokemon";
 
-export const Card = () => {
+export interface CardProps {
+  pokemonData: PokemonListItem;
+}
+
+const getPokemonIdFromUrl = (url: string): string => {
+  const parts = url.split("/").filter((part) => part);
+  return parts[parts.length - 1];
+};
+
+export const Card = ({ pokemonData }: CardProps) => {
+  const { name, url } = pokemonData;
+  const pokemonId = getPokemonIdFromUrl(url);
+  const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
+
   return (
     <div className="pokemon-card">
       <div className="pokemon-card__image-container">
         <LikeButton />
         <img
-          src={bulbasur}
+          src={imageUrl}
           className="pokemon-card__image"
-          alt="Image of the pokemon"
+          alt={`Artwork of ${name}`}
         />
       </div>
       <div className="pokemon-card__content">
         <div className="pokemon-card__info">
-          <h3 className="pokemon-card__name">Bulbasur</h3>
+          <h3 className="pokemon-card__name">{name}</h3>
           <div className="pokemon-card__id-container">
             <svg
               className="pokemon-card__icon-pokeball"

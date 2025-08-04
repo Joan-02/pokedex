@@ -1,7 +1,8 @@
 import "./pokemonInfo.css";
 import bulbasur from "../../img/bulbasur.png";
+import type { CardProps } from "../../components/card/card";
 
-export const PokemonInfo = () => {
+export const PokemonInfo = ({ pokemonData }: CardProps) => {
   return (
     <article className="pokemon-info">
       <div className="pokemon-info__header">
@@ -30,7 +31,7 @@ export const PokemonInfo = () => {
 
       <div className="pokemon-info__body">
         <div className="pokemon-info__identity">
-          <h3 className="pokemon-info__name">Bulbasaur</h3>
+          <h3 className="pokemon-info__name">{pokemonData.name}</h3>
           <div className="pokemon-info__id-container">
             <svg
               xmlns="http://www.w3.org/2000/svg"

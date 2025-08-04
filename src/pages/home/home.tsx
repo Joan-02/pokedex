@@ -1,8 +1,25 @@
 import "./home.css";
 import { Card } from "../../components/card/card";
 import pokeball_header from "../../img/pokeball_header.svg";
+import { useState, useEffect } from "react";
+import { getPokemons } from "../../services/api";
+import type { PokemonListItem } from "../../types/pokemon";
 
 export const Home = () => {
+  const [pokemons, setPokemons] = useState<PokemonListItem[]>([]);
+
+  useEffect(() => {
+    const fetchInitialPokemons = async () => {
+      try {
+        const data = await getPokemons(20, 0);
+        setPokemons(data.results);
+      } catch (error) {
+        console.error("Failed to fetch pokemons", error);
+      }
+    };
+    fetchInitialPokemons();
+  }, []);
+
   return (
     <main className="home-container">
       <header className="header">
@@ -51,19 +68,9 @@ export const Home = () => {
         </div>
       </div>
       <div className="grid-container">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {pokemons.map((pokemon) => (
+          <Card key={pokemon.name} pokemonData={pokemon} />
+        ))}
       </div>
     </main>
   );
