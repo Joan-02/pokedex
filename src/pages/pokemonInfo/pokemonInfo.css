@@ -84,6 +84,7 @@
   color: var(--color-black);
   font-size: var(--font-24);
   font-weight: 400;
+  text-transform: capitalize;
 }
 
 .pokemon-info__section-title,

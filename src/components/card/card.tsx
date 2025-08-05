@@ -1,22 +1,27 @@
-import bulbasur from "../../img/bulbasur.png";
 import "./Card.css";
 import "../likeButton/likeButton";
 import { LikeButton } from "../likeButton/likeButton";
+import type { CardProps } from "../../types/types";
+import { getPokemonIdFromUrl, getPokemonImageUrl } from "../../utils/utils";
 
-export const Card = () => {
+export const Card = ({ pokemonData }: CardProps) => {
+  const { name, url } = pokemonData;
+  const pokemonId = getPokemonIdFromUrl(url);
+  const imageUrl = getPokemonImageUrl(pokemonId);
+
   return (
     <div className="pokemon-card">
       <div className="pokemon-card__image-container">
         <LikeButton />
         <img
-          src={bulbasur}
+          src={imageUrl}
           className="pokemon-card__image"
-          alt="Image of the pokemon"
+          alt={`Artwork of ${name}`}
         />
       </div>
       <div className="pokemon-card__content">
         <div className="pokemon-card__info">
-          <h3 className="pokemon-card__name">Bulbasur</h3>
+          <h3 className="pokemon-card__name">{name}</h3>
           <div className="pokemon-card__id-container">
             <svg
               className="pokemon-card__icon-pokeball"
@@ -31,7 +36,7 @@ export const Card = () => {
                 fill="black"
               />
             </svg>
-            <p className="pokemon-card__number">234</p>
+            <p className="pokemon-card__number">{pokemonId}</p>
           </div>
         </div>
         <div className="pokemon-card__types">
