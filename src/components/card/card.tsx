@@ -1,21 +1,13 @@
 import "./Card.css";
 import "../likeButton/likeButton";
 import { LikeButton } from "../likeButton/likeButton";
-import type { PokemonListItem } from "../../types/pokemon";
-
-export interface CardProps {
-  pokemonData: PokemonListItem;
-}
-
-const getPokemonIdFromUrl = (url: string): string => {
-  const parts = url.split("/").filter((part) => part);
-  return parts[parts.length - 1];
-};
+import type { CardProps } from "../../types/types";
+import { getPokemonIdFromUrl, getPokemonImageUrl } from "../../utils/utils";
 
 export const Card = ({ pokemonData }: CardProps) => {
   const { name, url } = pokemonData;
   const pokemonId = getPokemonIdFromUrl(url);
-  const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
+  const imageUrl = getPokemonImageUrl(pokemonId);
 
   return (
     <div className="pokemon-card">
@@ -44,7 +36,7 @@ export const Card = ({ pokemonData }: CardProps) => {
                 fill="black"
               />
             </svg>
-            <p className="pokemon-card__number">234</p>
+            <p className="pokemon-card__number">{pokemonId}</p>
           </div>
         </div>
         <div className="pokemon-card__types">

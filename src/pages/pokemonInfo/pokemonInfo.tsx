@@ -1,8 +1,12 @@
 import "./pokemonInfo.css";
-import bulbasur from "../../img/bulbasur.png";
-import type { CardProps } from "../../components/card/card";
+import type { CardProps } from "../../types/types";
+import { getPokemonIdFromUrl, getPokemonImageUrl } from "../../utils/utils";
 
 export const PokemonInfo = ({ pokemonData }: CardProps) => {
+  const { name, url } = pokemonData;
+  const pokemonId = getPokemonIdFromUrl(url);
+  const imageUrl = getPokemonImageUrl(pokemonId);
+
   return (
     <article className="pokemon-info">
       <div className="pokemon-info__header">
@@ -22,16 +26,16 @@ export const PokemonInfo = ({ pokemonData }: CardProps) => {
             </svg>
           </button>
           <img
-            src={bulbasur}
+            src={imageUrl}
             className="pokemon-info__image"
-            alt="Artwork of Bulbasaur"
+            alt={`Artwork of ${name}`}
           />
         </div>
       </div>
 
       <div className="pokemon-info__body">
         <div className="pokemon-info__identity">
-          <h3 className="pokemon-info__name">{pokemonData.name}</h3>
+          <h3 className="pokemon-info__name">{name}</h3>
           <div className="pokemon-info__id-container">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +49,7 @@ export const PokemonInfo = ({ pokemonData }: CardProps) => {
                 fill="black"
               />
             </svg>
-            <p className="pokemon-info__id">001</p>
+            <p className="pokemon-info__id">{pokemonId}</p>
           </div>
         </div>
 

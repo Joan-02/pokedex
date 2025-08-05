@@ -3,7 +3,7 @@ import { Card } from "../../components/card/card";
 import pokeball_header from "../../img/pokeball_header.svg";
 import { useState, useEffect } from "react";
 import { getPokemons } from "../../services/api";
-import type { PokemonListItem } from "../../types/pokemon";
+import type { PokemonListItem } from "../../types/types";
 
 export const Home = () => {
   const [pokemons, setPokemons] = useState<PokemonListItem[]>([]);

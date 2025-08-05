@@ -9,3 +9,18 @@ export interface PokemonListResponse {
   previous: string | null;
   results: PokemonListItem[];
 }
+
+export interface CardProps {
+  pokemonData: PokemonListItem;
+}
+
+export interface PokemonDetails {
+  id: number;
+  name: string;
+  types: {
+    type: {
+      name: string;
+      url: string;
+    };
+  }[];
+}
