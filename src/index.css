@@ -66,3 +66,9 @@ button {
   margin: 0;
   cursor: pointer;
 }
+
+/*--- RESET LINK REACT ROUTER ---*/
+.pokemon-card-link {
+  text-decoration: none;
+  color: inherit;
+}
