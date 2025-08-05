@@ -23,4 +23,20 @@ export interface PokemonDetails {
       url: string;
     };
   }[];
+  weight: number;
+  height: number;
+  abilities: {
+    ability: {
+      name: string;
+      url: string;
+    };
+  }[];
+  stats: {
+    basestat: number;
+    effort: number;
+    stat: {
+      name: string;
+      url: string;
+    };
+  }[];
 }
