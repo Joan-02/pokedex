@@ -1,17 +1,64 @@
 import "./pokemonInfo.css";
-import type { CardProps } from "../../types/types";
-import { getPokemonIdFromUrl, getPokemonImageUrl } from "../../utils/utils";
+import { getPokemonImageUrl } from "../../utils/utils";
+import type { PokemonDetails } from "../../types/types";
+import { getPokemonDetails } from "../../services/api";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-export const PokemonInfo = ({ pokemonData }: CardProps) => {
-  const { name, url } = pokemonData;
-  const pokemonId = getPokemonIdFromUrl(url);
-  const imageUrl = getPokemonImageUrl(pokemonId);
+export const PokemonInfo = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails | null>(
+    null
+  );
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
+  useEffect(() => {
+    if (!id) {
+      setError("No Pokémon ID provided.");
+      setIsLoading(false);
+      return;
+    }
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const data = await getPokemonDetails(id);
+        setPokemonDetails(data);
+      } catch (error) {
+        console.error("Failed to fetch pokemon details", error);
+        setError("Could not fetch Pokémon data.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  if (isLoading) {
+    return <div>Loading Pokémon...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!pokemonDetails) {
+    return <div>Pokémon not found.</div>;
+  }
+
+  const imageUrl = getPokemonImageUrl(pokemonDetails.id);
 
   return (
     <article className="pokemon-info">
       <div className="pokemon-info__header">
         <div className="pokemon-info__image-container">
-          <button className="back-button">
+          <button className="back-button" onClick={handleGoBack}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -28,14 +75,14 @@ export const PokemonInfo = ({ pokemonData }: CardProps) => {
           <img
             src={imageUrl}
             className="pokemon-info__image"
-            alt={`Artwork of ${name}`}
+            alt={`Artwork of ${pokemonDetails.name}`}
           />
         </div>
       </div>
 
       <div className="pokemon-info__body">
         <div className="pokemon-info__identity">
-          <h3 className="pokemon-info__name">{name}</h3>
+          <h3 className="pokemon-info__name">{pokemonDetails.name}</h3>
           <div className="pokemon-info__id-container">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -49,35 +96,39 @@ export const PokemonInfo = ({ pokemonData }: CardProps) => {
                 fill="black"
               />
             </svg>
-            <p className="pokemon-info__id">{pokemonId}</p>
+            <p className="pokemon-info__id">{id}</p>
           </div>
         </div>
 
         <div className="pokemon-info__section">
           <h4 className="pokemon-info__section-title">Types</h4>
           <div className="pokemon-info__pills-container">
-            <span className="pokemon-info__pill type--grass">Grass</span>
-            <span className="pokemon-info__pill type--poison">Poison</span>
+            <span className="pokemon-info__pill type--grass">
+              {pokemonDetails.type}
+            </span>
+            <span className="pokemon-info__pill type--poison">
+              {pokemonDetails.type}
+            </span>
           </div>
         </div>
 
         <div className="pokemon-info__section pokemon-info__section--horizontal">
           <div className="pokemon-info__attribute">
             <h4 className="pokemon-info__section-title">Weight</h4>
-            <p className="pokemon-info__pill">6.9 kg</p>
+            <p className="pokemon-info__pill">{`${pokemonDetails.weight} kg`}</p>
           </div>
           <div className="pokemon-info__attribute">
             <h4 className="pokemon-info__section-title">Height</h4>
-            <p className="pokemon-info__pill">0.7 m</p>
+            <p className="pokemon-info__pill">{`${pokemonDetails.height} m`}</p>
           </div>
         </div>
 
         <div className="pokemon-info__section">
           <h4 className="pokemon-info__section-title">Abilities</h4>
           <div className="pokemon-info__pills-container">
-            <span className="pokemon-info__pill">Keen-eye</span>
-            <span className="pokemon-info__pill">Infiltrator</span>
-            <span className="pokemon-info__pill">Prankster</span>
+            <span className="pokemon-info__pill">{pokemonDetails.ability}</span>
+            <span className="pokemon-info__pill">{pokemonDetails.ability}</span>
+            <span className="pokemon-info__pill">{pokemonDetails.ability}</span>
           </div>
         </div>
         <div className="pokemon-info__section-stats">
