@@ -4,6 +4,7 @@ import type { PokemonDetails } from "../../types/types";
 import { getPokemonDetails } from "../../services/api";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { STAT_ABBREVIATIONS } from "../../constants/constants";
 
 export const PokemonInfo = () => {
   const { id } = useParams();
@@ -103,12 +104,11 @@ export const PokemonInfo = () => {
         <div className="pokemon-info__section">
           <h4 className="pokemon-info__section-title">Types</h4>
           <div className="pokemon-info__pills-container">
-            <span className="pokemon-info__pill type--grass">
-              {pokemonDetails.type}
-            </span>
-            <span className="pokemon-info__pill type--poison">
-              {pokemonDetails.type}
-            </span>
+            {pokemonDetails.types.map((typeInfo) => (
+              <span key={typeInfo.type.name} className="pokemon-info__pill">
+                {typeInfo.type.name}
+              </span>
+            ))}
           </div>
         </div>
 
@@ -126,36 +126,29 @@ export const PokemonInfo = () => {
         <div className="pokemon-info__section">
           <h4 className="pokemon-info__section-title">Abilities</h4>
           <div className="pokemon-info__pills-container">
-            <span className="pokemon-info__pill">{pokemonDetails.ability}</span>
-            <span className="pokemon-info__pill">{pokemonDetails.ability}</span>
-            <span className="pokemon-info__pill">{pokemonDetails.ability}</span>
+            {pokemonDetails.abilities.map((abilityInfo) => (
+              <span
+                key={abilityInfo.ability.name}
+                className="pokemon-info__pill"
+              >
+                {abilityInfo.ability.name}
+              </span>
+            ))}
           </div>
         </div>
         <div className="pokemon-info__section-stats">
-          <div className="pokemon-info__stats">
-            <h4 className="pokemon-info__section-title">HP</h4>
-            <span className="pokemon-info__pill">60</span>
-          </div>
-          <div className="pokemon-info__stats">
-            <h4 className="pokemon-info__section-title">ATK</h4>
-            <span className="pokemon-info__pill">100</span>
-          </div>
-          <div className="pokemon-info__stats">
-            <h4 className="pokemon-info__section-title">DEF</h4>
-            <span className="pokemon-info__pill">6</span>
-          </div>
-          <div className="pokemon-info__stats">
-            <h4 className="pokemon-info__section-title">Sp.Atk</h4>
-            <span className="pokemon-info__pill">74</span>
-          </div>
-          <div className="pokemon-info__stats">
-            <h4 className="pokemon-info__section-title">Sp.Def</h4>
-            <span className="pokemon-info__pill">260</span>
-          </div>
-          <div className="pokemon-info__stats">
-            <h4 className="pokemon-info__section-title">SPD</h4>
-            <span className="pokemon-info__pill">12</span>
-          </div>
+          {pokemonDetails.stats.map((statInfo) => (
+            <div key={statInfo.stat.name} className="pokemon-info__stats">
+              <h4 className="pokemon-info__section-title">
+                {
+                  STAT_ABBREVIATIONS[
+                    statInfo.stat.name as keyof typeof STAT_ABBREVIATIONS
+                  ]
+                }
+              </h4>
+              <span className="pokemon-info__pill">{statInfo.base_stat}</span>
+            </div>
+          ))}
         </div>
       </div>
     </article>

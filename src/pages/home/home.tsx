@@ -7,18 +7,20 @@ import type { PokemonListItem } from "../../types/types";
 
 export const Home = () => {
   const [pokemons, setPokemons] = useState<PokemonListItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const POKEMONS_PER_PAGE = 21;
 
   useEffect(() => {
-    const fetchInitialPokemons = async () => {
-      try {
-        const data = await getPokemons(20, 0);
-        setPokemons(data.results);
-      } catch (error) {
-        console.error("Failed to fetch pokemons", error);
-      }
+    const fetchPokemons = async () => {
+      const offset = (currentPage - 1) * POKEMONS_PER_PAGE;
+
+      const data = await getPokemons(POKEMONS_PER_PAGE, offset);
+
+      setPokemons(data.results);
     };
-    fetchInitialPokemons();
-  }, []);
+
+    fetchPokemons();
+  }, [currentPage]);
 
   return (
     <main className="home-container">
@@ -71,6 +73,21 @@ export const Home = () => {
         {pokemons.map((pokemon) => (
           <Card key={pokemon.name} pokemonData={pokemon} />
         ))}
+      </div>
+      <div className="pagination-controls">
+        <button
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          &larr; Anterior
+        </button>
+        <span>Página {currentPage}</span>
+        <button
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === 0}
+        >
+          Siguiente &rarr;
+        </button>
       </div>
     </main>
   );
