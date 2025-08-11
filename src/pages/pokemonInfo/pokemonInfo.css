@@ -112,7 +112,8 @@
 .pokemon-info__stats {
   display: flex;
   justify-content: space-between;
-  max-width: 150px;
+  gap: var(--space-12);
+  max-width: 110px;
 }
 
 @media (height > 700px) {

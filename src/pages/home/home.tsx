@@ -2,13 +2,18 @@ import "./home.css";
 import { Card } from "../../components/card/card";
 import pokeball_header from "../../img/pokeball_header.svg";
 import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { getPokemons } from "../../services/api";
 import type { PokemonListItem } from "../../types/types";
 
 export const Home = () => {
   const [pokemons, setPokemons] = useState<PokemonListItem[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialPage = Number(searchParams.get("page")) || 1;
+  const [currentPage, setCurrentPage] = useState(initialPage);
   const POKEMONS_PER_PAGE = 21;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -17,15 +22,31 @@ export const Home = () => {
       const data = await getPokemons(POKEMONS_PER_PAGE, offset);
 
       setPokemons(data.results);
+      if (totalPages === 0) {
+        const total = Math.ceil(data.count / POKEMONS_PER_PAGE);
+        setTotalPages(total);
+      }
     };
 
     fetchPokemons();
   }, [currentPage]);
 
+  const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setCurrentPage(newPage);
+    setSearchParams({ page: String(newPage) });
+  };
+
+  const handleFirstPage = () => {
+    navigate();
+  };
+
   return (
     <main className="home-container">
       <header className="header">
-        <img src={pokeball_header} alt="" />
+        <button onClick={handleFirstPage}>
+          <img src={pokeball_header} alt="Pokeball" />
+        </button>
       </header>
       <div className="controls-container">
         <div className="searchbar-wrapper">
@@ -76,15 +97,15 @@ export const Home = () => {
       </div>
       <div className="pagination-controls">
         <button
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
           &larr; Anterior
         </button>
         <span>Página {currentPage}</span>
         <button
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === 0}
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
         >
           Siguiente &rarr;
         </button>
