@@ -32,7 +32,7 @@ export interface PokemonDetails {
     };
   }[];
   stats: {
-    basestat: number;
+    base_stat: number;
     effort: number;
     stat: {
       name: string;

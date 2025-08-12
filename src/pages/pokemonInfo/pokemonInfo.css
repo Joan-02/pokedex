@@ -92,6 +92,7 @@
   color: var(--color-gray-800);
   font-size: var(--font-18);
   font-weight: 400;
+  text-transform: capitalize;
 }
 
 .pokemon-info__section-title {
@@ -111,7 +112,8 @@
 .pokemon-info__stats {
   display: flex;
   justify-content: space-between;
-  max-width: 150px;
+  gap: var(--space-12);
+  max-width: 110px;
 }
 
 @media (height > 700px) {

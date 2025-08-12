@@ -1,30 +1,44 @@
 import "./home.css";
 import { Card } from "../../components/card/card";
-import pokeball_header from "../../img/pokeball_header.svg";
+import { Header } from "../../components/header/header";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { getPokemons } from "../../services/api";
 import type { PokemonListItem } from "../../types/types";
 
 export const Home = () => {
   const [pokemons, setPokemons] = useState<PokemonListItem[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialPage = Number(searchParams.get("page")) || 1;
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const POKEMONS_PER_PAGE = 21;
 
   useEffect(() => {
-    const fetchInitialPokemons = async () => {
-      try {
-        const data = await getPokemons(20, 0);
-        setPokemons(data.results);
-      } catch (error) {
-        console.error("Failed to fetch pokemons", error);
+    const fetchPokemons = async () => {
+      const offset = (currentPage - 1) * POKEMONS_PER_PAGE;
+
+      const data = await getPokemons(POKEMONS_PER_PAGE, offset);
+
+      setPokemons(data.results);
+      if (totalPages === 0) {
+        const total = Math.ceil(data.count / POKEMONS_PER_PAGE);
+        setTotalPages(total);
       }
     };
-    fetchInitialPokemons();
-  }, []);
+
+    fetchPokemons();
+  }, [currentPage]);
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setCurrentPage(newPage);
+    setSearchParams({ page: String(newPage) });
+  };
 
   return (
     <main className="home-container">
-      <header className="header">
-        <img src={pokeball_header} alt="" />
-      </header>
+      <Header />
       <div className="controls-container">
         <div className="searchbar-wrapper">
           <input
@@ -71,6 +85,21 @@ export const Home = () => {
         {pokemons.map((pokemon) => (
           <Card key={pokemon.name} pokemonData={pokemon} />
         ))}
+      </div>
+      <div className="pagination-controls">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          &larr; Anterior
+        </button>
+        <span>Página {currentPage}</span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Siguiente &rarr;
+        </button>
       </div>
     </main>
   );
