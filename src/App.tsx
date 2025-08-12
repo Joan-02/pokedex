@@ -1,13 +1,12 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import { Home } from "./pages/home/home";
-import { PokemonInfo } from "./pages/pokemonInfo/pokemonInfo";
+import { Outlet } from "react-router-dom";
 
 export const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/pokemon/:id" element={<PokemonInfo />} />
-    </Routes>
+    <>
+      <div className="outlet-container">
+        <Outlet />
+      </div>
+    </>
   );
 };

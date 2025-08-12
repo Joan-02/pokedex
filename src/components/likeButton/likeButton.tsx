@@ -4,7 +4,9 @@ import "./LikeButton.css";
 export const LikeButton = () => {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
     setIsFavorite(!isFavorite);
   };
 

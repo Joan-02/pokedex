@@ -1,8 +1,8 @@
 import "./home.css";
 import { Card } from "../../components/card/card";
-import pokeball_header from "../../img/pokeball_header.svg";
+import { Header } from "../../components/header/header";
 import { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { getPokemons } from "../../services/api";
 import type { PokemonListItem } from "../../types/types";
 
@@ -13,7 +13,6 @@ export const Home = () => {
   const initialPage = Number(searchParams.get("page")) || 1;
   const [currentPage, setCurrentPage] = useState(initialPage);
   const POKEMONS_PER_PAGE = 21;
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -37,17 +36,9 @@ export const Home = () => {
     setSearchParams({ page: String(newPage) });
   };
 
-  const handleFirstPage = () => {
-    navigate();
-  };
-
   return (
     <main className="home-container">
-      <header className="header">
-        <button onClick={handleFirstPage}>
-          <img src={pokeball_header} alt="Pokeball" />
-        </button>
-      </header>
+      <Header />
       <div className="controls-container">
         <div className="searchbar-wrapper">
           <input

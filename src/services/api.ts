@@ -23,29 +23,6 @@ export const getPokemons = async (
   }
 };
 
-export const getAllPokemons = async (): Promise<PokemonListItem[]> => {
-  try {
-    const initialResponse = await fetch(`${API_BASE_URL}/pokemon`);
-    if (!initialResponse.ok) throw new Error("Failed to get Pokémon count.");
-
-    const initialData: PokemonListResponse = await initialResponse.json();
-    const totalPokemonCount = initialData.count;
-
-    const allPokemonResponse = await fetch(
-      `${API_BASE_URL}/pokemon?limit=${totalPokemonCount}`
-    );
-    if (!allPokemonResponse.ok)
-      throw new Error("Failed to fetch the full Pokémon list.");
-
-    const allPokemonData: PokemonListResponse = await allPokemonResponse.json();
-
-    return allPokemonData.results;
-  } catch (error) {
-    console.error("Error fetching all Pokémon:", error);
-    throw error;
-  }
-};
-
 export const getPokemonDetails = async (
   identifier: string | number
 ): Promise<PokemonDetails> => {
