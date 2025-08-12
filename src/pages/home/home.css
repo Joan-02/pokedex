@@ -53,6 +53,18 @@
   gap: 4px;
 }
 
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 16px 0 16px;
+}
+
+.arrow-pagination {
+  line-height: 0;
+}
+
 @media (width > 722px) {
   .grid-container {
     display: flex;

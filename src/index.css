@@ -35,6 +35,7 @@
   --space-20: 20px;
   --space-30: 30px;
   --space-40: 40px;
+  --space-400: 400px;
 }
 
 * {
@@ -48,6 +49,10 @@ body {
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
+}
+
+.outlet-container {
+  margin-bottom: 50px;
 }
 
 /* --- RESET PARA BOTONES --- */
