@@ -88,17 +88,41 @@ export const Home = () => {
       </div>
       <div className="pagination-controls">
         <button
+          className="pagination-controls__arrow"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          &larr; Anterior
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M20 12.9999L20 10.9999L8 10.9999L13.5 5.49992L12.08 4.07992L4.16 11.9999L12.08 19.9199L13.5 18.4999L8 12.9999L20 12.9999Z"
+              fill="black"
+            />
+          </svg>
         </button>
-        <span>Página {currentPage}</span>
+        <span className="actual-page">Page {currentPage}</span>
         <button
+          className="pagination-controls__arrow"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
-          Siguiente &rarr;
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M4 11.0001V13.0001H16L10.5 18.5001L11.92 19.9201L19.84 12.0001L11.92 4.08008L10.5 5.50008L16 11.0001H4Z"
+              fill="black"
+            />
+          </svg>
         </button>
       </div>
     </main>

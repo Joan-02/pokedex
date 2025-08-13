@@ -53,6 +53,20 @@
   gap: 4px;
 }
 
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px 0 16px;
+  width: 100%;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.pagination-controls__arrow {
+  line-height: 0;
+}
+
 @media (width > 722px) {
   .grid-container {
     display: flex;
