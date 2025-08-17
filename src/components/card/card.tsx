@@ -2,18 +2,22 @@ import "./Card.css";
 import "../likeButton/likeButton";
 import { LikeButton } from "../likeButton/likeButton";
 import type { CardProps } from "../../types/types";
-import { getPokemonIdFromUrl, getPokemonImageUrl } from "../../utils/utils";
 import { Link } from "react-router-dom";
+import { POKEMON_TYPE_COLORS } from "../../constants/constants";
 
 export const Card = ({ pokemonData }: CardProps) => {
-  const { name, url } = pokemonData;
-  const pokemonId = getPokemonIdFromUrl(url);
-  const imageUrl = getPokemonImageUrl(pokemonId);
+  const { id, name, sprites, types } = pokemonData;
+  const imageUrl = sprites.other?.["official-artwork"]?.front_default;
+  const primaryType = types[0].type.name;
+  const backgroundColor = POKEMON_TYPE_COLORS[primaryType] || "#CCC";
 
   return (
-    <Link to={`/pokemon/${pokemonId}`} className="pokemon-card-link">
+    <Link to={`/pokemon/${id}`} className="pokemon-card-link">
       <div className="pokemon-card">
-        <div className="pokemon-card__image-container">
+        <div
+          className="pokemon-card__image-container"
+          style={{ backgroundColor: backgroundColor }}
+        >
           <LikeButton />
           <img
             src={imageUrl}
@@ -38,12 +42,18 @@ export const Card = ({ pokemonData }: CardProps) => {
                   fill="black"
                 />
               </svg>
-              <p className="pokemon-card__number">{pokemonId}</p>
+              <p className="pokemon-card__number">{id}</p>
             </div>
           </div>
           <div className="pokemon-card__types">
-            <p className="pokemon-card__type-badge">Grass</p>
-            <p className="pokemon-card__type-badge">Poission</p>
+            {types.map((typeInfo) => (
+              <span
+                key={typeInfo.type.name}
+                className="pokemon-card__type-badge"
+              >
+                {typeInfo.type.name}
+              </span>
+            ))}
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ export interface PokemonListResponse {
 }
 
 export interface CardProps {
-  pokemonData: PokemonListItem;
+  pokemonData: PokemonDetails;
 }
 
 export interface PokemonDetails {
@@ -39,4 +39,11 @@ export interface PokemonDetails {
       url: string;
     };
   }[];
+  sprites: {
+    other?: {
+      "official-artwork"?: {
+        front_default: string;
+      };
+    };
+  };
 }

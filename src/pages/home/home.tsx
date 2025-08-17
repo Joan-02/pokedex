@@ -3,11 +3,11 @@ import { Card } from "../../components/card/card";
 import { Header } from "../../components/header/header";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getPokemons } from "../../services/api";
-import type { PokemonListItem } from "../../types/types";
+import { getPokemons, getPokemonDetails } from "../../services/api";
+import type { PokemonDetails } from "../../types/types";
 
 export const Home = () => {
-  const [pokemons, setPokemons] = useState<PokemonListItem[]>([]);
+  const [pokemons, setPokemons] = useState<PokemonDetails[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialPage = Number(searchParams.get("page")) || 1;
@@ -18,11 +18,17 @@ export const Home = () => {
     const fetchPokemons = async () => {
       const offset = (currentPage - 1) * POKEMONS_PER_PAGE;
 
-      const data = await getPokemons(POKEMONS_PER_PAGE, offset);
+      const listData = await getPokemons(POKEMONS_PER_PAGE, offset);
 
-      setPokemons(data.results);
+      const detailPromises = listData.results.map((pokemon) => {
+        return getPokemonDetails(pokemon.name);
+      });
+      const pokemonDetailsData = await Promise.all(detailPromises);
+
+      setPokemons(pokemonDetailsData);
+
       if (totalPages === 0) {
-        const total = Math.ceil(data.count / POKEMONS_PER_PAGE);
+        const total = Math.ceil(listData.count / POKEMONS_PER_PAGE);
         setTotalPages(total);
       }
     };
@@ -88,41 +94,41 @@ export const Home = () => {
       </div>
       <div className="pagination-controls">
         <button
-          className="pagination-controls__arrow"
+          className="arrow-pagination"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
-            height="24"
-            viewBox="0 0 24 24"
+            height="25"
+            viewBox="0 0 24 25"
             fill="none"
           >
             <path
-              d="M20 12.9999L20 10.9999L8 10.9999L13.5 5.49992L12.08 4.07992L4.16 11.9999L12.08 19.9199L13.5 18.4999L8 12.9999L20 12.9999Z"
+              d="M20.0006 10.1109V14.1109H11.0006L14.5006 17.6109L12.0806 20.0309L4.16064 12.1109L12.0806 4.19092L14.5006 6.61092L11.0006 10.1109H20.0006Z"
               fill="black"
             />
           </svg>
         </button>
-        <span className="actual-page">Page {currentPage}</span>
+        <span className="actual-page">Página {currentPage}</span>
         <button
-          className="pagination-controls__arrow"
+          className="arrow-pagination"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
-            height="24"
-            viewBox="0 0 24 24"
+            height="25"
+            viewBox="0 0 24 25"
             fill="none"
           >
             <path
-              d="M4 11.0001V13.0001H16L10.5 18.5001L11.92 19.9201L19.84 12.0001L11.92 4.08008L10.5 5.50008L16 11.0001H4Z"
+              d="M4.00033 14.1108L4.00033 10.1108L13.0003 10.1108L9.50033 6.61076L11.9203 4.19076L19.8403 12.1108L11.9203 20.0308L9.50033 17.6108L13.0003 14.1108L4.00033 14.1108Z"
               fill="black"
             />
-          </svg>
+          </svg>{" "}
         </button>
       </div>
     </main>

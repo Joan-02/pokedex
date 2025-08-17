@@ -71,4 +71,5 @@
 .pokemon-card__type-badge {
   color: var(--color-gray-800);
   font-size: var(--font-14);
+  text-transform: capitalize;
 }
