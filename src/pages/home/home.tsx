@@ -3,11 +3,11 @@ import { Card } from "../../components/card/card";
 import { Header } from "../../components/header/header";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getPokemons } from "../../services/api";
-import type { PokemonListItem } from "../../types/types";
+import { getPokemons, getPokemonDetails } from "../../services/api";
+import type { PokemonDetails } from "../../types/types";
 
 export const Home = () => {
-  const [pokemons, setPokemons] = useState<PokemonListItem[]>([]);
+  const [pokemons, setPokemons] = useState<PokemonDetails[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialPage = Number(searchParams.get("page")) || 1;
@@ -18,11 +18,17 @@ export const Home = () => {
     const fetchPokemons = async () => {
       const offset = (currentPage - 1) * POKEMONS_PER_PAGE;
 
-      const data = await getPokemons(POKEMONS_PER_PAGE, offset);
+      const listData = await getPokemons(POKEMONS_PER_PAGE, offset);
 
-      setPokemons(data.results);
+      const detailPromises = listData.results.map((pokemon) => {
+        return getPokemonDetails(pokemon.name);
+      });
+      const pokemonDetailsData = await Promise.all(detailPromises);
+
+      setPokemons(pokemonDetailsData);
+
       if (totalPages === 0) {
-        const total = Math.ceil(data.count / POKEMONS_PER_PAGE);
+        const total = Math.ceil(listData.count / POKEMONS_PER_PAGE);
         setTotalPages(total);
       }
     };
