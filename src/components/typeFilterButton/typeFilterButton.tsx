@@ -1,25 +1,26 @@
 import "./typeFilterButton.css";
+import { CheckboxCheckedIcon } from "../icon/checkboxCheckedIcon";
+import { CheckboxIcon } from "../icon/checkBoxIcon";
 
-export const TypeFilterButton = () => {
+interface TypeFilterButton {
+  typeName: string;
+  isActive: boolean;
+  onClick: (name: string) => void;
+}
+
+export const TypeFilterButton = (filterInfo: TypeFilterButton) => {
+  const { typeName, isActive, onClick } = filterInfo;
+
   return (
     <>
-      <div className="filter-button_container">
+      <div
+        className="filter-button_container"
+        onClick={() => onClick(typeName)}
+      >
         <button className="checkbox-button">
-          <svg
-            className="checkbox-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="19"
-            viewBox="0 0 18 19"
-            fill="none"
-          >
-            <path
-              d="M14.25 2.75H3.75C2.9175 2.75 2.25 3.4175 2.25 4.25V14.75C2.25 15.1478 2.40804 15.5294 2.68934 15.8107C2.97064 16.092 3.35218 16.25 3.75 16.25H14.25C14.6478 16.25 15.0294 16.092 15.3107 15.8107C15.592 15.5294 15.75 15.1478 15.75 14.75V4.25C15.75 3.4175 15.075 2.75 14.25 2.75ZM14.25 4.25V14.75H3.75V4.25H14.25Z"
-              fill="black"
-            />
-          </svg>
+          {isActive ? <CheckboxCheckedIcon /> : <CheckboxIcon />}
+          <span className="filter-name">{typeName}</span>
         </button>
-        <span className="filter-name">Water</span>
       </div>
     </>
   );

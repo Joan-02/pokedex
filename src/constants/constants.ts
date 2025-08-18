@@ -35,3 +35,24 @@ export const POKEMON_TYPE_COLORS: { [key: string]: string } = {
   steel: "rgba(183, 183, 206, 0.5)",
   fairy: "rgba(214, 133, 173, 0.5)",
 };
+
+export const POKEMON_TYPES: string[] = [
+  "normal",
+  "fire",
+  "water",
+  "electric",
+  "grass",
+  "ice",
+  "fighting",
+  "poison",
+  "ground",
+  "flying",
+  "psychic",
+  "bug",
+  "rock",
+  "ghost",
+  "dragon",
+  "dark",
+  "steel",
+  "fairy",
+];

@@ -1,4 +1,4 @@
-.modal-overlay {
+.modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-.modal-content {
+.modal__content {
   background-color: var(--color-white);
   display: flex;
   width: 361px;
@@ -21,12 +21,51 @@
   align-items: flex-start;
   gap: 20px;
   border-radius: 16px;
-}
-
-.close-button__container {
-  width: 100%;
+  position: relative;
 }
 
 .close-button {
-  margin-left: 100%;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.modal__title {
+  color: var(--color-black);
+  font-size: var(--font-16);
+  font-weight: 500;
+  margin-bottom: var(--space-20);
+}
+
+.modal__grid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-10);
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: var(--space-20);
+}
+
+.modal__action-button {
+  padding: 8px 16px;
+}
+
+.modal__action-button--primary {
+  border-radius: 100px;
+  background: #e9eff1;
+}
+
+.modal__action-button--secondary {
+  border-radius: 100px;
+  border: 1px solid #cdd5d8;
 }
