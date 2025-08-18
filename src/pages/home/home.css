@@ -61,6 +61,7 @@
   width: 100%;
   max-width: 600px;
   margin-inline: auto;
+  margin-bottom: 50px;
 }
 
 .pagination-controls__arrow {
