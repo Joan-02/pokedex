@@ -1,6 +1,7 @@
 import "./home.css";
 import { Card } from "../../components/card/card";
 import { Header } from "../../components/header/header";
+import { FiltersModal } from "../../components/filtersModal/filtersModal";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getPokemons, getPokemonDetails } from "../../services/api";
@@ -13,6 +14,7 @@ export const Home = () => {
   const initialPage = Number(searchParams.get("page")) || 1;
   const [currentPage, setCurrentPage] = useState(initialPage);
   const POKEMONS_PER_PAGE = 21;
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -70,7 +72,13 @@ export const Home = () => {
               />
             </svg>
           </button>
-          <button className="button-container">
+          <button
+            className="button-container"
+            onClick={() => {
+              console.log("¡El botón de filtros fue clickeado!"); // Añade esta línea
+              setIsFilterModalOpen(true);
+            }}
+          >
             <span>Filters</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -128,9 +136,12 @@ export const Home = () => {
               d="M4.00033 14.1108L4.00033 10.1108L13.0003 10.1108L9.50033 6.61076L11.9203 4.19076L19.8403 12.1108L11.9203 20.0308L9.50033 17.6108L13.0003 14.1108L4.00033 14.1108Z"
               fill="black"
             />
-          </svg>{" "}
+          </svg>
         </button>
       </div>
+      {isFilterModalOpen && (
+        <FiltersModal onClose={() => setIsFilterModalOpen(false)} />
+      )}
     </main>
   );
 };

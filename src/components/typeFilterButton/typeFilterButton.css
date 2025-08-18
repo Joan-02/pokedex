@@ -1,0 +1,21 @@
+.filter-button_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox-button {
+  line-height: 0;
+}
+
+.checkbox-icon {
+  line-height: 0;
+}
+
+.filter-name {
+  margin-left: 8px;
+  color: var(--color-black);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}
