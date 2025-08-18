@@ -50,10 +50,10 @@ body {
   display: flex;
   flex-direction: column;
 }
-
+/* 
 .outlet-container {
   margin-bottom: 50px;
-}
+} */
 
 /* --- RESET PARA BOTONES --- */
 button {

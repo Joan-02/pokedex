@@ -4,7 +4,10 @@ import type { PokemonDetails } from "../../types/types";
 import { getPokemonDetails } from "../../services/api";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { STAT_ABBREVIATIONS } from "../../constants/constants";
+import {
+  STAT_ABBREVIATIONS,
+  POKEMON_TYPE_COLORS,
+} from "../../constants/constants";
 
 export const PokemonInfo = () => {
   const { id } = useParams();
@@ -55,10 +58,15 @@ export const PokemonInfo = () => {
 
   const imageUrl = getPokemonImageUrl(pokemonDetails.id);
 
+  const primaryType = pokemonDetails.types[0].type.name;
+  const backgroundColor = POKEMON_TYPE_COLORS[primaryType] || "#CCC";
   return (
     <article className="pokemon-info">
       <div className="pokemon-info__header">
-        <div className="pokemon-info__image-container">
+        <div
+          className="pokemon-info__image-container"
+          style={{ backgroundColor: backgroundColor }}
+        >
           <button className="back-button" onClick={handleGoBack}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
