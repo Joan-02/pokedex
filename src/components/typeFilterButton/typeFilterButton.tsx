@@ -1,6 +1,6 @@
 import "./typeFilterButton.css";
 import { CheckboxCheckedIcon } from "../icon/checkboxCheckedIcon";
-import { CheckboxIcon } from "../icon/checkBoxIcon";
+import { CheckboxIcon } from "../icon/checkboxIcon";
 
 interface TypeFilterButton {
   typeName: string;

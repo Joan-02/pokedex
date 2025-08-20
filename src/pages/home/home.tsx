@@ -15,6 +15,7 @@ export const Home = () => {
   const [currentPage, setCurrentPage] = useState(initialPage);
   const POKEMONS_PER_PAGE = 21;
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -44,6 +45,15 @@ export const Home = () => {
     setSearchParams({ page: String(newPage) });
   };
 
+  const handleApplyFilters = (selectedTypes: string[]) => {
+    setActiveFilters(selectedTypes);
+  };
+
+  let filteredPokemons;
+
+  if (activeFilters.length === 0) {
+    filteredPokemons = pokemons;
+  }
   return (
     <main className="home-container">
       <Header />
@@ -140,7 +150,10 @@ export const Home = () => {
         </button>
       </div>
       {isFilterModalOpen && (
-        <FiltersModal onClose={() => setIsFilterModalOpen(false)} />
+        <FiltersModal
+          onClose={() => setIsFilterModalOpen(false)}
+          onApplyFilters={handleApplyFilters}
+        />
       )}
     </main>
   );
