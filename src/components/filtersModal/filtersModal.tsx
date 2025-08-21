@@ -6,13 +6,15 @@ import { POKEMON_TYPES } from "../../constants/constants";
 interface FiltersModalProps {
   onClose: () => void;
   onApplyFilters: (selectedTypes: string[]) => void;
+  initialSelectedTypes: string[];
 }
 
 export const FiltersModal = ({
   onClose,
   onApplyFilters,
+  initialSelectedTypes,
 }: FiltersModalProps) => {
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [selectedTypes, setSelectedTypes] = useState(initialSelectedTypes);
 
   const handleTypeToggle = (typeName: string) => {
     setSelectedTypes((currentSelectedTypes) => {

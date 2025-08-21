@@ -1,22 +1,22 @@
-.filter-button_container {
+.type-filter-button {
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
 }
 
-.checkbox-button {
-  line-height: 0;
+.type-filter-button.is-active {
+  border-color: #333;
 }
 
-.checkbox-icon {
-  line-height: 0;
-}
-
-.filter-name {
-  margin-left: 8px;
+.type-filter-button__name {
   color: var(--color-black);
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
   text-transform: capitalize;
 }

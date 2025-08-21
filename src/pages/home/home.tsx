@@ -49,11 +49,19 @@ export const Home = () => {
     setActiveFilters(selectedTypes);
   };
 
-  let filteredPokemons;
+  const filteredPokemons =
+    activeFilters.length === 0
+      ? pokemons
+      : pokemons.filter((pokemon) => {
+          const pokemonTypes = pokemon.types.map(
+            (typeInfo) => typeInfo.type.name
+          );
+          const isMatch = activeFilters.some((filter) =>
+            pokemonTypes.includes(filter)
+          );
+          return isMatch;
+        });
 
-  if (activeFilters.length === 0) {
-    filteredPokemons = pokemons;
-  }
   return (
     <main className="home-container">
       <Header />
@@ -106,7 +114,7 @@ export const Home = () => {
         </div>
       </div>
       <div className="grid-container">
-        {pokemons.map((pokemon) => (
+        {filteredPokemons.map((pokemon) => (
           <Card key={pokemon.name} pokemonData={pokemon} />
         ))}
       </div>
@@ -153,6 +161,7 @@ export const Home = () => {
         <FiltersModal
           onClose={() => setIsFilterModalOpen(false)}
           onApplyFilters={handleApplyFilters}
+          initialSelectedTypes={activeFilters}
         />
       )}
     </main>
