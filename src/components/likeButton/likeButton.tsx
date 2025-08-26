@@ -1,19 +1,22 @@
-import { useState } from "react";
 import "./LikeButton.css";
 
-export const LikeButton = () => {
-  const [isFavorite, setIsFavorite] = useState(false);
+interface LikeButtonProps {
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
+}
 
-  const handleFavoriteClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    event.preventDefault();
-    setIsFavorite(!isFavorite);
-  };
-
+export const LikeButton = ({
+  onToggleFavorite,
+  isFavorite,
+}: LikeButtonProps) => {
   return (
     <button
       className={`like-button ${isFavorite ? "is-favorite" : ""}`}
-      onClick={handleFavoriteClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        onToggleFavorite();
+      }}
       aria-label="Marcar como favorito"
     >
       <svg

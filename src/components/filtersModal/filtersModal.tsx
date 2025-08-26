@@ -31,6 +31,10 @@ export const FiltersModal = ({
     onClose();
   };
 
+  const handleClearFilters = () => {
+    setSelectedTypes([]);
+  };
+
   return (
     <div className="modal__overlay" onClick={onClose}>
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
@@ -67,7 +71,10 @@ export const FiltersModal = ({
         </div>
 
         <div className="modal__actions">
-          <button className="modal__action-button modal__action-button--secondary">
+          <button
+            className="modal__action-button modal__action-button--secondary"
+            onClick={handleClearFilters}
+          >
             Clear
           </button>
           <button

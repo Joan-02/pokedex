@@ -16,6 +16,8 @@ export const Home = () => {
   const POKEMONS_PER_PAGE = 21;
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [isFavorite, setIsFavorite] = useState<number[]>([]);
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -49,18 +51,30 @@ export const Home = () => {
     setActiveFilters(selectedTypes);
   };
 
-  const filteredPokemons =
-    activeFilters.length === 0
-      ? pokemons
-      : pokemons.filter((pokemon) => {
-          const pokemonTypes = pokemon.types.map(
-            (typeInfo) => typeInfo.type.name
-          );
-          const isMatch = activeFilters.some((filter) =>
-            pokemonTypes.includes(filter)
-          );
-          return isMatch;
-        });
+  const handleToggleFavorite = (pokemonId: number) => {
+    setIsFavorite((currentSelectedLike) => {
+      if (currentSelectedLike.includes(pokemonId)) {
+        return currentSelectedLike.filter((id) => id !== pokemonId);
+      } else {
+        return [...currentSelectedLike, pokemonId];
+      }
+    });
+  };
+
+  let pokemonsToDisplay = pokemons;
+
+  if (showOnlyFavorites) {
+    pokemonsToDisplay = pokemonsToDisplay.filter((pokemon) =>
+      isFavorite.includes(pokemon.id)
+    );
+  }
+
+  if (activeFilters.length > 0) {
+    pokemonsToDisplay = pokemonsToDisplay.filter((pokemon) => {
+      const pokemonTypes = pokemon.types.map((typeInfo) => typeInfo.type.name);
+      return activeFilters.some((filter) => pokemonTypes.includes(filter));
+    });
+  }
 
   return (
     <main className="home-container">
@@ -75,7 +89,10 @@ export const Home = () => {
           />
         </div>
         <div className="filter-buttons-wrapper">
-          <button className="button-container">
+          <button
+            className="button-container"
+            onClick={() => setShowOnlyFavorites(!showOnlyFavorites)}
+          >
             <span>Favorites</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +110,7 @@ export const Home = () => {
           <button
             className="button-container"
             onClick={() => {
-              console.log("¡El botón de filtros fue clickeado!"); // Añade esta línea
+              console.log("¡El botón de filtros fue clickeado!");
               setIsFilterModalOpen(true);
             }}
           >
@@ -114,9 +131,21 @@ export const Home = () => {
         </div>
       </div>
       <div className="grid-container">
-        {filteredPokemons.map((pokemon) => (
-          <Card key={pokemon.name} pokemonData={pokemon} />
-        ))}
+        {pokemonsToDisplay.length === 0 ? (
+          <div className="empty-state-message">
+            <p>No Pokémon match your criteria.</p>
+            <p>Try clearing the filters or adding some favorites!</p>
+          </div>
+        ) : (
+          pokemonsToDisplay.map((pokemon) => (
+            <Card
+              key={pokemon.id}
+              pokemonData={pokemon}
+              onToggleFavorite={handleToggleFavorite}
+              isFavorite={isFavorite.includes(pokemon.id)}
+            />
+          ))
+        )}
       </div>
       <div className="pagination-controls">
         <button
