@@ -1,0 +1,86 @@
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__content {
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  max-height: 80vh;
+  margin: 16px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.modal__header {
+  padding: 20px;
+  position: relative;
+  flex-shrink: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.modal__title {
+  margin: 0;
+  color: var(--color-black);
+  font-size: var(--font-16);
+  font-weight: 500;
+}
+
+.modal__scrollable-content {
+  overflow-y: auto;
+  flex-grow: 1;
+  padding: 0 20px;
+}
+
+.modal__grid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-10);
+  padding-block: 20px;
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-20);
+  padding: 20px;
+  border-top: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+.modal__action-button {
+  padding: 8px 16px;
+}
+
+.modal__action-button--primary {
+  border-radius: 100px;
+  background: #e9eff1;
+}
+
+.modal__action-button--secondary {
+  border-radius: 100px;
+  border: 1px solid #cdd5d8;
+}

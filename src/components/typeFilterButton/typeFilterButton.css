@@ -1,0 +1,22 @@
+.type-filter-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.type-filter-button.is-active {
+  border-color: #333;
+}
+
+.type-filter-button__name {
+  color: var(--color-black);
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: capitalize;
+}

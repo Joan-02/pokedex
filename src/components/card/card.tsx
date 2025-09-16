@@ -5,7 +5,11 @@ import type { CardProps } from "../../types/types";
 import { Link } from "react-router-dom";
 import { POKEMON_TYPE_COLORS } from "../../constants/constants";
 
-export const Card = ({ pokemonData }: CardProps) => {
+export const Card = ({
+  pokemonData,
+  onToggleFavorite,
+  isFavorite,
+}: CardProps) => {
   const { id, name, sprites, types } = pokemonData;
   const imageUrl = sprites.other?.["official-artwork"]?.front_default;
   const primaryType = types[0].type.name;
@@ -18,7 +22,10 @@ export const Card = ({ pokemonData }: CardProps) => {
           className="pokemon-card__image-container"
           style={{ backgroundColor: backgroundColor }}
         >
-          <LikeButton />
+          <LikeButton
+            onToggleFavorite={() => onToggleFavorite(pokemonData.id)}
+            isFavorite={isFavorite}
+          />
           <img
             src={imageUrl}
             className="pokemon-card__image"

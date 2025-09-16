@@ -1,6 +1,7 @@
 import "./home.css";
 import { Card } from "../../components/card/card";
 import { Header } from "../../components/header/header";
+import { FiltersModal } from "../../components/filtersModal/filtersModal";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getPokemons, getPokemonDetails } from "../../services/api";
@@ -13,6 +14,10 @@ export const Home = () => {
   const initialPage = Number(searchParams.get("page")) || 1;
   const [currentPage, setCurrentPage] = useState(initialPage);
   const POKEMONS_PER_PAGE = 21;
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [isFavorite, setIsFavorite] = useState<number[]>([]);
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -42,6 +47,35 @@ export const Home = () => {
     setSearchParams({ page: String(newPage) });
   };
 
+  const handleApplyFilters = (selectedTypes: string[]) => {
+    setActiveFilters(selectedTypes);
+  };
+
+  const handleToggleFavorite = (pokemonId: number) => {
+    setIsFavorite((currentSelectedLike) => {
+      if (currentSelectedLike.includes(pokemonId)) {
+        return currentSelectedLike.filter((id) => id !== pokemonId);
+      } else {
+        return [...currentSelectedLike, pokemonId];
+      }
+    });
+  };
+
+  let pokemonsToDisplay = pokemons;
+
+  if (showOnlyFavorites) {
+    pokemonsToDisplay = pokemonsToDisplay.filter((pokemon) =>
+      isFavorite.includes(pokemon.id)
+    );
+  }
+
+  if (activeFilters.length > 0) {
+    pokemonsToDisplay = pokemonsToDisplay.filter((pokemon) => {
+      const pokemonTypes = pokemon.types.map((typeInfo) => typeInfo.type.name);
+      return activeFilters.some((filter) => pokemonTypes.includes(filter));
+    });
+  }
+
   return (
     <main className="home-container">
       <Header />
@@ -55,7 +89,10 @@ export const Home = () => {
           />
         </div>
         <div className="filter-buttons-wrapper">
-          <button className="button-container">
+          <button
+            className="button-container"
+            onClick={() => setShowOnlyFavorites(!showOnlyFavorites)}
+          >
             <span>Favorites</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +107,13 @@ export const Home = () => {
               />
             </svg>
           </button>
-          <button className="button-container">
+          <button
+            className="button-container"
+            onClick={() => {
+              console.log("¡El botón de filtros fue clickeado!");
+              setIsFilterModalOpen(true);
+            }}
+          >
             <span>Filters</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -88,9 +131,21 @@ export const Home = () => {
         </div>
       </div>
       <div className="grid-container">
-        {pokemons.map((pokemon) => (
-          <Card key={pokemon.name} pokemonData={pokemon} />
-        ))}
+        {pokemonsToDisplay.length === 0 ? (
+          <div className="empty-state-message">
+            <p>No Pokémon match your criteria.</p>
+            <p>Try clearing the filters or adding some favorites!</p>
+          </div>
+        ) : (
+          pokemonsToDisplay.map((pokemon) => (
+            <Card
+              key={pokemon.id}
+              pokemonData={pokemon}
+              onToggleFavorite={handleToggleFavorite}
+              isFavorite={isFavorite.includes(pokemon.id)}
+            />
+          ))
+        )}
       </div>
       <div className="pagination-controls">
         <button
@@ -128,9 +183,16 @@ export const Home = () => {
               d="M4.00033 14.1108L4.00033 10.1108L13.0003 10.1108L9.50033 6.61076L11.9203 4.19076L19.8403 12.1108L11.9203 20.0308L9.50033 17.6108L13.0003 14.1108L4.00033 14.1108Z"
               fill="black"
             />
-          </svg>{" "}
+          </svg>
         </button>
       </div>
+      {isFilterModalOpen && (
+        <FiltersModal
+          onClose={() => setIsFilterModalOpen(false)}
+          onApplyFilters={handleApplyFilters}
+          initialSelectedTypes={activeFilters}
+        />
+      )}
     </main>
   );
 };
