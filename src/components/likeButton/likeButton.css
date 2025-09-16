@@ -9,12 +9,12 @@
 }
 
 .like-button svg {
-  fill: var(--color-gray-800);
+  fill: var(--color-like-button);
   transition: fill 0.2s ease-in-out;
 }
 
 .like-button:hover svg {
-  fill: var(--color-gray-900);
+  fill: var(--color-like-button-hover);
 }
 
 .like-button.is-favorite svg {

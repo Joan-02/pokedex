@@ -2,10 +2,17 @@ import "./home.css";
 import { Card } from "../../components/card/card";
 import { Header } from "../../components/header/header";
 import { FiltersModal } from "../../components/filtersModal/filtersModal";
+import { SunIcon } from "../../components/modeIcons/SunIcon";
+import { MoonIcon } from "../../components/modeIcons/MoonIcon";
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useOutletContext } from "react-router-dom";
 import { getPokemons, getPokemonDetails } from "../../services/api";
 import type { PokemonDetails } from "../../types/types";
+
+interface ThemeContextType {
+  theme: string;
+  toggleTheme: () => void;
+}
 
 export const Home = () => {
   const [pokemons, setPokemons] = useState<PokemonDetails[]>([]);
@@ -18,6 +25,7 @@ export const Home = () => {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [isFavorite, setIsFavorite] = useState<number[]>([]);
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+  const { theme, toggleTheme } = useOutletContext<ThemeContextType>();
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -89,11 +97,17 @@ export const Home = () => {
           />
         </div>
         <div className="filter-buttons-wrapper">
+          <button className="button-container" onClick={toggleTheme}>
+            <span className="button-label">Mode</span>
+            <span className="theme-switch__slider">
+              {theme === "light" ? <SunIcon /> : <MoonIcon />}
+            </span>
+          </button>
           <button
             className="button-container"
             onClick={() => setShowOnlyFavorites(!showOnlyFavorites)}
           >
-            <span>Favorites</span>
+            <span className="button-label">Favorites</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -114,7 +128,7 @@ export const Home = () => {
               setIsFilterModalOpen(true);
             }}
           >
-            <span>Filters</span>
+            <span className="button-label">Filters</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
