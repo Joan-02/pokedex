@@ -4,7 +4,7 @@
   height: 280px;
   flex-direction: column;
   border-radius: 6px;
-  box-shadow: 0 0 12px 0 var(--color-shadow);
+  box-shadow: 0 0 12px 0 var(--color-shadow-card);
   cursor: pointer;
 }
 
@@ -31,7 +31,8 @@
   flex-direction: column;
   justify-content: center;
   gap: 6px;
-  background-color: var(--color-prueba);
+  background-color: var(--color-background-card);
+  border-radius: 0 0 6px 6px;
 }
 
 .pokemon-card__info {
@@ -55,6 +56,7 @@
 .pokemon-card__icon-pokeball {
   width: 16px;
   height: 16px;
+  color: var(--color-text-primary);
 }
 
 .pokemon-card__number {

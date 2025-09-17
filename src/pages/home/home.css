@@ -51,6 +51,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  color: var(--color-text-primary);
 }
 
 .button-label {
@@ -58,7 +59,12 @@
 }
 
 .theme-switch__slider {
+  color: var(--color-text-primary);
   line-height: 0;
+}
+
+.actual-page {
+  color: var(--color-text-primary);
 }
 
 .pagination-controls {

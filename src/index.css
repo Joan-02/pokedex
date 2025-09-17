@@ -1,8 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap");
 
-:root {
-  /* -----> Colors */
+/* --- VARIABLES SEMÁNTICAS (TEMA OSCURO) --- */
+[data-theme="dark"] {
+  --color-text-primary: var(--color-white);
+  --color-text-secondary: var(--color-gray-500);
+  --color-border: var(--color-gray-900);
+  --color-background-white: var(--color-black);
+  --color-like-button: var(--color-gray-200);
+  --color-like-button-hover: var(--color-white);
+  --color-border-searchbar: var(--color-black);
+  --shadow-card: var(--color-gray-800);
+  --color-prueba: var(--color-gray-200);
+  --color-shadow: var(--color-gray-800);
+  --color-background-card: var(--color-black-secondary);
+  --color-shadow-card: var(--color-gray-900);
+}
 
+:root {
+  /* --- VARIABLES SEMÁNTICAS (TEMA CLARO) --- */
+  --color-text-primary: var(--color-black);
+  --color-text-secondary: var(--color-gray-800);
+  --color-border-gray-200: var(--color-gray-200);
+  --color-background-white: var(--color-white);
+  --color-like-button: var(--color-gray-800);
+  --color-like-button-hover: var(--color-gray-900);
+  --color-border-searchbar: var(--color-black);
+  --color-shadow-card: var(--color-gray-300);
+  --color-background-card: var(--color-white);
+  --color-border: var(--color-gray-200);
+
+  /* -----> Colors */
   /* Green */
   --color-green: hsla(98, 52%, 54%, 70%);
 
@@ -19,19 +46,10 @@
 
   /* Black */
   --color-black: hsla(221, 39%, 11%, 1);
+  --color-black-secondary: hsla(215, 28%, 17%, 1);
 
   /* White */
   --color-white: hsl(0, 0%, 100%);
-
-  /* --- VARIABLES SEMÁNTICAS (TEMA CLARO) --- */
-  --color-text-primary: var(--color-black);
-  --color-text-secondary: var(--color-gray-800);
-  --color-border-gray-200: var(--color-gray-200);
-  --color-background-white: var(--color-white);
-  --color-like-button: var(--color-gray-800);
-  --color-like-button-hover: var(--color-gray-900);
-  --color-border-searchbar: var(--color-black);
-  --color-shadow: var(--color-gray-300);
 
   /* -----> Font family */
   --font-primary: "Onest", sans-serif;
@@ -52,20 +70,6 @@
   --space-30: 30px;
   --space-40: 40px;
   --space-400: 400px;
-}
-
-/* --- VARIABLES SEMÁNTICAS (TEMA OSCURO) --- */
-[data-theme="dark"] {
-  --color-text-primary: var(--color-black);
-  --color-text-secondary: var(--color-gray-800);
-  --color-border: var(--color-black);
-  --color-background-white: var(--color-gray-600);
-  --color-like-button: var(--color-gray-200);
-  --color-like-button-hover: var(--color-white);
-  --color-border-searchbar: var(--color-black);
-  --shadow-card: var(--color-gray-800);
-  --color-prueba: var(--color-gray-200);
-  --color-shadow: var(--color-gray-800);
 }
 
 * {
