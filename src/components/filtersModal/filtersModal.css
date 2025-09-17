@@ -43,7 +43,7 @@
 
 .modal__title {
   margin: 0;
-  color: var(--color-black);
+  color: var(--color-text-primary);
   font-size: var(--font-16);
   font-weight: 500;
 }
@@ -52,6 +52,7 @@
   overflow-y: auto;
   flex-grow: 1;
   padding: 0 20px;
+  background-color: var(--color-background-card);
 }
 
 .modal__grid {

@@ -141,8 +141,10 @@ export const Home = () => {
       <div className="grid-container">
         {pokemonsToDisplay.length === 0 ? (
           <div className="empty-state-message">
-            <p>No Pokémon match your criteria.</p>
-            <p>Try clearing the filters or adding some favorites!</p>
+            <p className="state-message">No Pokémon match your criteria.</p>
+            <p className="state-message">
+              Try clearing the filters or adding some favorites!
+            </p>
           </div>
         ) : (
           pokemonsToDisplay.map((pokemon) => (

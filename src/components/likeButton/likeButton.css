@@ -9,7 +9,7 @@
 }
 
 .like-button svg {
-  fill: var(--color-like-button);
+  fill: var(--color-text-primary);
   transition: fill 0.2s ease-in-out;
 }
 
