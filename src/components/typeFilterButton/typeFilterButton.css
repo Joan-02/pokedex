@@ -11,11 +11,11 @@
 }
 
 .type-filter-button.is-active {
-  border-color: var(--color-text-primary);
+  border-color: var(--color-fg-primary);
 }
 
 .type-filter-button__name {
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
   font-size: 16px;
   font-weight: 400;
   text-transform: capitalize;

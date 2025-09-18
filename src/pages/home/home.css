@@ -51,24 +51,24 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
 }
 
 .button-label {
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
 }
 
 .theme-switch__slider {
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
   line-height: 0;
 }
 
 .state-message {
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
 }
 
 .actual-page {
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
 }
 
 .pagination-controls {

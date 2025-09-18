@@ -41,7 +41,7 @@
 }
 
 .pokemon-card__name {
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
   font-size: var(--font-16);
   font-weight: 500;
   text-transform: capitalize;
@@ -56,11 +56,11 @@
 .pokemon-card__icon-pokeball {
   width: 16px;
   height: 16px;
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
 }
 
 .pokemon-card__number {
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
   font-size: var(--font-16);
   font-weight: 500;
   margin-top: 1px;

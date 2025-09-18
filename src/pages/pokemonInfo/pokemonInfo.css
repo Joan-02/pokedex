@@ -57,7 +57,7 @@
 }
 
 .pokemon-info__icon-pokeball {
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
 }
 
 .pokemon-info__section,
@@ -85,7 +85,7 @@
 
 .pokemon-info__name,
 .pokemon-info__id {
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
   font-size: var(--font-24);
   font-weight: 400;
   text-transform: capitalize;
@@ -104,7 +104,7 @@
 }
 
 .pokemon-info__pill {
-  color: var(--color-text-primary);
+  color: var(--color-fg-primary);
 }
 
 .pokemon-info__section-stats {
