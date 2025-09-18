@@ -6,7 +6,16 @@ export const App = () => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark" || savedTheme === "light") {
+      setTheme(savedTheme);
+      document.body.setAttribute("data-theme", savedTheme);
+    }
+  }, []);
+
+  useEffect(() => {
     document.body.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {

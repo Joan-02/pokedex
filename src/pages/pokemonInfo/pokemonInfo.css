@@ -56,6 +56,10 @@
   align-items: center;
 }
 
+.pokemon-info__icon-pokeball {
+  color: var(--color-text-primary);
+}
+
 .pokemon-info__section,
 .pokemon-info__attribute {
   display: grid;

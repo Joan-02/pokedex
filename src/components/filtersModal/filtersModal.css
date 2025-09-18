@@ -28,6 +28,7 @@
   position: relative;
   flex-shrink: 0;
   border-bottom: 1px solid #eee;
+  background-color: var(--color-background-card);
 }
 
 .close-button {
@@ -39,6 +40,7 @@
   padding: 0;
   cursor: pointer;
   line-height: 0;
+  color: var(--color-text-primary);
 }
 
 .modal__title {
@@ -70,6 +72,7 @@
   padding: 20px;
   border-top: 1px solid #eee;
   flex-shrink: 0;
+  background-color: var(--color-background-card);
 }
 
 .modal__action-button {
@@ -84,4 +87,5 @@
 .modal__action-button--secondary {
   border-radius: 100px;
   border: 1px solid #cdd5d8;
+  color: var(--color-text-primary);
 }

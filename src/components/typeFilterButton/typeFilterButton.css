@@ -11,7 +11,7 @@
 }
 
 .type-filter-button.is-active {
-  border-color: #333;
+  border-color: var(--color-text-primary);
 }
 
 .type-filter-button__name {

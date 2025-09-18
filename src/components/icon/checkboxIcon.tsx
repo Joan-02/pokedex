@@ -1,3 +1,5 @@
+import "./checkboxCheckedIcon.css";
+
 export const CheckboxIcon = () => (
   <svg
     className="checkbox-icon"
