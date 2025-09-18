@@ -17,7 +17,12 @@ export const Card = ({
   const backgroundColor = POKEMON_TYPE_COLORS[primaryType] || "#CCC";
 
   return (
-    <Link to={`/pokemon/${id}`} className="pokemon-card-link">
+    <Link
+      to={`/pokemon/${id}`}
+      className={
+        layout === "grid" ? "pokemon-card-link" : "pokemon-card-link-list"
+      }
+    >
       <div className={layout === "grid" ? "pokemon-card" : "pokemon-card-list"}>
         <div
           className={

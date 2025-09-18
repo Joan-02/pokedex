@@ -4,6 +4,8 @@ import { Header } from "../../components/header/header";
 import { FiltersModal } from "../../components/filtersModal/filtersModal";
 import { SunIcon } from "../../components/modeIcons/SunIcon";
 import { MoonIcon } from "../../components/modeIcons/MoonIcon";
+import { ListIcon } from "../../components/viewIcons/ListIcon";
+import { GridIcon } from "../../components/viewIcons/GridIcon";
 import { useState, useEffect } from "react";
 import { useSearchParams, useOutletContext } from "react-router-dom";
 import { getPokemons, getPokemonDetails } from "../../services/api";
@@ -102,6 +104,12 @@ export const Home = () => {
           />
         </div>
         <div className="filter-buttons-wrapper">
+          <button className="button-container" onClick={changeLayout}>
+            <span className="button-label">View</span>
+            <span className="theme-switch__slider">
+              {layout === "grid" ? <GridIcon /> : <ListIcon />}
+            </span>
+          </button>
           <button className="button-container" onClick={toggleTheme}>
             <span className="button-label">Mode</span>
             <span className="theme-switch__slider">
@@ -143,7 +151,7 @@ export const Home = () => {
           </button>
         </div>
       </div>
-      <div className="grid-container list-container">
+      <div className={layout === "grid" ? "grid-container" : "list-container"}>
         {pokemonsToDisplay.length === 0 ? (
           <div className="empty-state-message">
             <p className="state-message">No Pokémon match your criteria.</p>
