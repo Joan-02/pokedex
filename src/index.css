@@ -1,18 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap");
 
-:root {
-  /* -----> Colors */
+/* --- VARIABLES SEMÁNTICAS (TEMA OSCURO) --- */
+[data-theme="dark"] {
+  --color-fg-primary: var(--color-white);
+  --color-text-secondary: var(--color-gray-500);
+  --color-border: var(--color-gray-900);
+  --color-bg-body: var(--color-black);
+  --color-like-button-hover: var(--color-white);
+  --color-border-searchbar: var(--color-black);
+  --color-background-card: var(--color-black-secondary);
+  --color-shadow-card: var(--color-gray-900);
+}
 
+:root {
+  /* --- VARIABLES SEMÁNTICAS (TEMA CLARO) --- */
+  --color-fg-primary: var(--color-black);
+  --color-text-secondary: var(--color-gray-800);
+  --color-bg-body: var(--color-white);
+  --color-like-button-hover: var(--color-gray-900);
+  --color-border-searchbar: var(--color-black);
+  --color-shadow-card: var(--color-gray-300);
+  --color-background-card: var(--color-white);
+  --color-border: var(--color-gray-200);
+
+  /* -----> Colors */
   /* Green */
   --color-green: hsla(98, 52%, 54%, 70%);
 
   /* Neutrals */
+  --color-gray-100: hsla(200, 20%, 98%, 1);
   --color-gray-200: hsla(195, 22%, 93%, 1);
+  --color-gray-300: hsla(200, 15%, 85%, 1);
+  --color-gray-400: hsla(202, 12%, 70%, 1);
+  --color-gray-500: hsla(204, 10%, 60%, 1);
+  --color-gray-600: hsla(205, 9%, 52%, 1);
+  --color-gray-700: hsla(205, 8%, 48%, 1);
   --color-gray-800: hsla(206, 7%, 45%, 1);
   --color-gray-900: hsla(204, 9%, 32%, 1);
 
   /* Black */
   --color-black: hsla(221, 39%, 11%, 1);
+  --color-black-secondary: hsla(215, 28%, 17%, 1);
 
   /* White */
   --color-white: hsl(0, 0%, 100%);
@@ -46,7 +74,7 @@
 
 body {
   font-family: var(--font-primary);
-  background-color: #ffffff;
+  background-color: var(--color-bg-body);
   display: flex;
   flex-direction: column;
 }
