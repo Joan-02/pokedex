@@ -26,6 +26,7 @@ export const Home = () => {
   const [isFavorite, setIsFavorite] = useState<number[]>([]);
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
   const { theme, toggleTheme } = useOutletContext<ThemeContextType>();
+  const [layout, setLayout] = useState("grid");
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -84,6 +85,10 @@ export const Home = () => {
     });
   }
 
+  const changeLayout = () => {
+    setLayout(layout === "grid" ? "list" : "grid");
+  };
+
   return (
     <main className="home-container">
       <Header />
@@ -138,7 +143,7 @@ export const Home = () => {
           </button>
         </div>
       </div>
-      <div className="grid-container">
+      <div className="grid-container list-container">
         {pokemonsToDisplay.length === 0 ? (
           <div className="empty-state-message">
             <p className="state-message">No Pokémon match your criteria.</p>
@@ -153,6 +158,7 @@ export const Home = () => {
               pokemonData={pokemon}
               onToggleFavorite={handleToggleFavorite}
               isFavorite={isFavorite.includes(pokemon.id)}
+              layout={layout}
             />
           ))
         )}

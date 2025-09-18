@@ -9,6 +9,7 @@ export const Card = ({
   pokemonData,
   onToggleFavorite,
   isFavorite,
+  layout,
 }: CardProps) => {
   const { id, name, sprites, types } = pokemonData;
   const imageUrl = sprites.other?.["official-artwork"]?.front_default;
@@ -17,9 +18,13 @@ export const Card = ({
 
   return (
     <Link to={`/pokemon/${id}`} className="pokemon-card-link">
-      <div className="pokemon-card">
+      <div className={layout === "grid" ? "pokemon-card" : "pokemon-card-list"}>
         <div
-          className="pokemon-card__image-container"
+          className={
+            layout === "grid"
+              ? "pokemon-card__image-container"
+              : "pokemon-card__image-container-list"
+          }
           style={{ backgroundColor: backgroundColor }}
         >
           <LikeButton
@@ -28,11 +33,21 @@ export const Card = ({
           />
           <img
             src={imageUrl}
-            className="pokemon-card__image"
+            className={
+              layout === "grid"
+                ? "pokemon-card__image"
+                : "pokemon-card__image-list"
+            }
             alt={`Artwork of ${name}`}
           />
         </div>
-        <div className="pokemon-card__content">
+        <div
+          className={
+            layout === "grid"
+              ? "pokemon-card__content"
+              : "pokemon-card__content-list"
+          }
+        >
           <div className="pokemon-card__info">
             <h3 className="pokemon-card__name">{name}</h3>
             <div className="pokemon-card__id-container">
