@@ -53,7 +53,13 @@ export const Card = ({
               : "pokemon-card__content-list"
           }
         >
-          <div className="pokemon-card__info">
+          <div
+            className={
+              layout === "grid"
+                ? "pokemon-card__info"
+                : "pokemon-card__info-list"
+            }
+          >
             <h3 className="pokemon-card__name">{name}</h3>
             <div className="pokemon-card__id-container">
               <svg
