@@ -56,6 +56,7 @@ export const Home = () => {
     if (newPage < 1 || newPage > totalPages) return;
     setCurrentPage(newPage);
     setSearchParams({ page: String(newPage) });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleApplyFilters = (selectedTypes: string[]) => {
@@ -185,6 +186,24 @@ export const Home = () => {
       <div className="pagination-controls">
         <button
           className="arrow-pagination button-container"
+          onClick={() => handlePageChange(1)}
+          disabled={currentPage === 1}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            viewBox="0 0 25 25"
+            fill="none"
+          >
+            <path
+              d="M12.0118 20.1344L4.0918 12.2144L12.0118 4.29436L13.4218 5.71436L7.9218 11.2144L22.0918 11.2144L22.0918 13.2144L7.9218 13.2144L13.4218 18.7144L12.0118 20.1344ZM4.0918 12.2144L4.0918 2.21436L2.0918 2.21436L2.0918 22.2144L4.0918 22.2144L4.0918 12.2144Z"
+              fill="black"
+            />
+          </svg>
+        </button>
+        <button
+          className="arrow-pagination button-container"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
@@ -212,6 +231,24 @@ export const Home = () => {
             fill="currentColor"
           >
             <path d="M4.00033 14.1108L4.00033 10.1108L13.0003 10.1108L9.50033 6.61076L11.9203 4.19076L19.8403 12.1108L11.9203 20.0308L9.50033 17.6108L13.0003 14.1108L4.00033 14.1108Z" />
+          </svg>
+        </button>
+        <button
+          className="arrow-pagination button-container"
+          onClick={() => handlePageChange(totalPages)}
+          disabled={currentPage === totalPages}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            viewBox="0 0 25 25"
+            fill="none"
+          >
+            <path
+              d="M12.1718 4.29436L20.0918 12.2144L12.1718 20.1344L10.7618 18.7144L16.2618 13.2144H2.0918V11.2144H16.2618L10.7618 5.71436L12.1718 4.29436ZM20.0918 12.2144V22.2144H22.0918V2.21436H20.0918V12.2144Z"
+              fill="black"
+            />
           </svg>
         </button>
       </div>
