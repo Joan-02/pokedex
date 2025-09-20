@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useOutletContext } from "react-router-dom";
 import { getPokemons, getPokemonDetails } from "../../services/api";
 import type { PokemonDetails } from "../../types/types";
+import { useFavorites } from "../../context/FavoritesContext";
 
 interface ThemeContextType {
   theme: string;
@@ -25,10 +26,11 @@ export const Home = () => {
   const POKEMONS_PER_PAGE = 21;
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
-  const [isFavorite, setIsFavorite] = useState<number[]>([]);
+  // const [isFavorite, setIsFavorite] = useState<number[]>([]);
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
   const { theme, toggleTheme } = useOutletContext<ThemeContextType>();
   const [layout, setLayout] = useState("grid");
+  const { favorites, toggleFavorite } = useFavorites();
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -63,22 +65,26 @@ export const Home = () => {
     setActiveFilters(selectedTypes);
   };
 
-  const handleToggleFavorite = (pokemonId: number) => {
-    setIsFavorite((currentSelectedLike) => {
-      if (currentSelectedLike.includes(pokemonId)) {
-        return currentSelectedLike.filter((id) => id !== pokemonId);
-      } else {
-        return [...currentSelectedLike, pokemonId];
-      }
-    });
-  };
+  // const handleToggleFavorite = (pokemonId: number) => {
+  //   setIsFavorite((currentSelectedLike) => {
+  //     if (currentSelectedLike.includes(pokemonId)) {
+  //       return currentSelectedLike.filter((id) => id !== pokemonId);
+  //     } else {
+  //       return [...currentSelectedLike, pokemonId];
+  //     }
+  //   });
+  // };
 
   let pokemonsToDisplay = pokemons;
 
+  // if (showOnlyFavorites) {
+  //   pokemonsToDisplay = pokemonsToDisplay.filter((pokemon) =>
+  //     isFavorite.includes(pokemon.id)
+  //   );
+  // }
+
   if (showOnlyFavorites) {
-    pokemonsToDisplay = pokemonsToDisplay.filter((pokemon) =>
-      isFavorite.includes(pokemon.id)
-    );
+    pokemonsToDisplay = favorites;
   }
 
   if (activeFilters.length > 0) {
@@ -176,8 +182,8 @@ export const Home = () => {
             <Card
               key={pokemon.id}
               pokemonData={pokemon}
-              onToggleFavorite={handleToggleFavorite}
-              isFavorite={isFavorite.includes(pokemon.id)}
+              onToggleFavorite={() => toggleFavorite(pokemon)}
+              isFavorite={favorites.some((fav) => fav.id === pokemon.id)}
               layout={layout}
             />
           ))

@@ -1,6 +1,7 @@
 import "./App.css";
 import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { FavoritesProvider } from "./context/FavoritesContext";
 
 export const App = () => {
   const [theme, setTheme] = useState("light");
@@ -25,10 +26,12 @@ export const App = () => {
   };
 
   return (
-    <>
-      <div className="outlet-container">
-        <Outlet context={{ theme, toggleTheme }} />
-      </div>
-    </>
+    <FavoritesProvider>
+      <>
+        <div className="outlet-container">
+          <Outlet context={{ theme, toggleTheme }} />
+        </div>
+      </>
+    </FavoritesProvider>
   );
 };
