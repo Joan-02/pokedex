@@ -4,6 +4,8 @@ import { Header } from "../../components/header/header";
 import { FiltersModal } from "../../components/filtersModal/filtersModal";
 import { SunIcon } from "../../components/modeIcons/SunIcon";
 import { MoonIcon } from "../../components/modeIcons/MoonIcon";
+import { ListIcon } from "../../components/viewIcons/ListIcon";
+import { GridIcon } from "../../components/viewIcons/GridIcon";
 import { useState, useEffect } from "react";
 import { useSearchParams, useOutletContext } from "react-router-dom";
 import { getPokemons, getPokemonDetails } from "../../services/api";
@@ -26,6 +28,7 @@ export const Home = () => {
   const [isFavorite, setIsFavorite] = useState<number[]>([]);
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
   const { theme, toggleTheme } = useOutletContext<ThemeContextType>();
+  const [layout, setLayout] = useState("grid");
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -53,6 +56,7 @@ export const Home = () => {
     if (newPage < 1 || newPage > totalPages) return;
     setCurrentPage(newPage);
     setSearchParams({ page: String(newPage) });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleApplyFilters = (selectedTypes: string[]) => {
@@ -84,6 +88,21 @@ export const Home = () => {
     });
   }
 
+  const changeLayout = () => {
+    setLayout(layout === "grid" ? "list" : "grid");
+  };
+
+  useEffect(() => {
+    const savedLayout = localStorage.getItem("layout");
+    if (savedLayout === "grid" || savedLayout === "list") {
+      setLayout(savedLayout);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("layout", layout);
+  }, [layout]);
+
   return (
     <main className="home-container">
       <Header />
@@ -97,6 +116,12 @@ export const Home = () => {
           />
         </div>
         <div className="filter-buttons-wrapper">
+          <button className="button-container" onClick={changeLayout}>
+            <span className="button-label">View</span>
+            <span className="theme-switch__slider">
+              {layout === "grid" ? <GridIcon /> : <ListIcon />}
+            </span>
+          </button>
           <button className="button-container" onClick={toggleTheme}>
             <span className="button-label">Mode</span>
             <span className="theme-switch__slider">
@@ -138,7 +163,7 @@ export const Home = () => {
           </button>
         </div>
       </div>
-      <div className="grid-container">
+      <div className={layout === "grid" ? "grid-container" : "list-container"}>
         {pokemonsToDisplay.length === 0 ? (
           <div className="empty-state-message">
             <p className="state-message">No Pokémon match your criteria.</p>
@@ -153,11 +178,30 @@ export const Home = () => {
               pokemonData={pokemon}
               onToggleFavorite={handleToggleFavorite}
               isFavorite={isFavorite.includes(pokemon.id)}
+              layout={layout}
             />
           ))
         )}
       </div>
       <div className="pagination-controls">
+        <button
+          className="arrow-pagination button-container"
+          onClick={() => handlePageChange(1)}
+          disabled={currentPage === 1}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            viewBox="0 0 25 25"
+            fill="none"
+          >
+            <path
+              d="M12.0118 20.1344L4.0918 12.2144L12.0118 4.29436L13.4218 5.71436L7.9218 11.2144L22.0918 11.2144L22.0918 13.2144L7.9218 13.2144L13.4218 18.7144L12.0118 20.1344ZM4.0918 12.2144L4.0918 2.21436L2.0918 2.21436L2.0918 22.2144L4.0918 22.2144L4.0918 12.2144Z"
+              fill="black"
+            />
+          </svg>
+        </button>
         <button
           className="arrow-pagination button-container"
           onClick={() => handlePageChange(currentPage - 1)}
@@ -187,6 +231,24 @@ export const Home = () => {
             fill="currentColor"
           >
             <path d="M4.00033 14.1108L4.00033 10.1108L13.0003 10.1108L9.50033 6.61076L11.9203 4.19076L19.8403 12.1108L11.9203 20.0308L9.50033 17.6108L13.0003 14.1108L4.00033 14.1108Z" />
+          </svg>
+        </button>
+        <button
+          className="arrow-pagination button-container"
+          onClick={() => handlePageChange(totalPages)}
+          disabled={currentPage === totalPages}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            viewBox="0 0 25 25"
+            fill="none"
+          >
+            <path
+              d="M12.1718 4.29436L20.0918 12.2144L12.1718 20.1344L10.7618 18.7144L16.2618 13.2144H2.0918V11.2144H16.2618L10.7618 5.71436L12.1718 4.29436ZM20.0918 12.2144V22.2144H22.0918V2.21436H20.0918V12.2144Z"
+              fill="black"
+            />
           </svg>
         </button>
       </div>

@@ -40,7 +40,7 @@
 
   /* Black */
   --color-black: hsla(221, 39%, 11%, 1);
-  --color-black-secondary: hsla(215, 28%, 17%, 1);
+  --color-black-secondary: #07090b;
 
   /* White */
   --color-white: hsl(0, 0%, 100%);

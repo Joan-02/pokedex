@@ -14,6 +14,7 @@ export interface CardProps {
   pokemonData: PokemonDetails;
   onToggleFavorite: (id: number) => void;
   isFavorite: boolean;
+  layout: string;
 }
 
 export interface PokemonDetails {
