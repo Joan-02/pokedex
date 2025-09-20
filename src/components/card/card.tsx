@@ -69,7 +69,13 @@ export const Card = ({
               <p className="pokemon-card__number">{id}</p>
             </div>
           </div>
-          <div className="pokemon-card__types">
+          <div
+            className={
+              layout === "grid"
+                ? "pokemon-card__types"
+                : "pokemon-card__types-list"
+            }
+          >
             {types.map((typeInfo) => (
               <span
                 key={typeInfo.type.name}

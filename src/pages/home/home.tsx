@@ -91,6 +91,17 @@ export const Home = () => {
     setLayout(layout === "grid" ? "list" : "grid");
   };
 
+  useEffect(() => {
+    const savedLayout = localStorage.getItem("layout");
+    if (savedLayout === "grid" || savedLayout === "list") {
+      setLayout(savedLayout);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("layout", layout);
+  }, [layout]);
+
   return (
     <main className="home-container">
       <Header />
