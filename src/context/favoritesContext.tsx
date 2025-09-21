@@ -1,47 +1,49 @@
 import { createContext, useState, useContext } from "react";
-import type { PokemonDetails } from "../types/types";
+import type { ReactNode } from "react";
 
-// Definimos qué tendrá el contexto
+//Lo que el proveedor da a sus hijos
 interface FavoritesContextType {
-  favorites: PokemonDetails[]; // Lista de favoritos
-  toggleFavorite: (pokemon: PokemonDetails) => void; // Función para añadir/quitar favoritos
+  favorites: number[];
+  toggleFavorite: (id: number) => void;
 }
 
-// Creamos el contexto
 const FavoritesContext = createContext<FavoritesContextType | undefined>(
   undefined
 );
 
-// Creamos el proveedor
-export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
-  const [favorites, setFavorites] = useState<PokemonDetails[]>(() => {
-    // Cargar favoritos desde localStorage al iniciar
-    const saved = localStorage.getItem("favorites");
-    return saved ? JSON.parse(saved) : [];
-  });
+//Lo que el proveedor recibe de su padre
+interface FavoritesProviderProps {
+  children: ReactNode;
+}
 
-  const toggleFavorite = (pokemon: PokemonDetails) => {
-    setFavorites((prev) => {
-      const exists = prev.find((p) => p.id === pokemon.id);
-      const updated = exists
-        ? prev.filter((p) => p.id !== pokemon.id)
-        : [...prev, pokemon];
-      localStorage.setItem("favorites", JSON.stringify(updated)); // Guardar en localStorage
-      return updated;
+export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
+  const [favorites, setFavorites] = useState<number[]>([]);
+
+  const toggleFavorite = (pokemonId: number) => {
+    console.log(`3. FavoritesContext: Recibido toggle para ID ${pokemonId}.`);
+
+    setFavorites((currentSelectedLike) => {
+      if (currentSelectedLike.includes(pokemonId)) {
+        return currentSelectedLike.filter((id) => id !== pokemonId);
+      } else {
+        return [...currentSelectedLike, pokemonId];
+      }
     });
   };
 
+  const value = { favorites, toggleFavorite };
+
   return (
-    <FavoritesContext.Provider value={{ favorites, toggleFavorite }}>
+    <FavoritesContext.Provider value={value}>
       {children}
     </FavoritesContext.Provider>
   );
 };
 
-// Hook para usar el contexto fácilmente
 export const useFavorites = () => {
   const context = useContext(FavoritesContext);
-  if (!context)
+  if (!context) {
     throw new Error("useFavorites must be used within a FavoritesProvider");
+  }
   return context;
 };

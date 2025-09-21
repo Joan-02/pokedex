@@ -1,7 +1,8 @@
 import "./App.css";
 import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { FavoritesProvider } from "./context/FavoritesContext";
+import { FavoritesProvider } from "./context/favoritesContext";
+import { PokemonDataProvider } from "./context/pokemonDataContext";
 
 export const App = () => {
   const [theme, setTheme] = useState("light");
@@ -26,12 +27,14 @@ export const App = () => {
   };
 
   return (
-    <FavoritesProvider>
-      <>
-        <div className="outlet-container">
-          <Outlet context={{ theme, toggleTheme }} />
-        </div>
-      </>
-    </FavoritesProvider>
+    <>
+      <PokemonDataProvider>
+        <FavoritesProvider>
+          <div className="outlet-container">
+            <Outlet context={{ theme, toggleTheme }} />
+          </div>
+        </FavoritesProvider>
+      </PokemonDataProvider>
+    </>
   );
 };

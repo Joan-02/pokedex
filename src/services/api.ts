@@ -40,3 +40,26 @@ export const getPokemonDetails = async (
     throw error;
   }
 };
+
+export const getAllPokemons = async (): Promise<PokemonDetails[]> => {
+  try {
+    const listResponse = await fetch(`${API_BASE_URL}/pokemon?limit=1`);
+    const listData: PokemonListResponse = await listResponse.json();
+    const count = listData.count;
+
+    const fullListResponse = await fetch(
+      `${API_BASE_URL}/pokemon?limit=${count}`
+    );
+    const fullListData: PokemonListResponse = await fullListResponse.json();
+
+    const detailPromises = fullListData.results.map((p) =>
+      getPokemonDetails(p.name)
+    );
+    const allDetails = await Promise.all(detailPromises);
+
+    return allDetails;
+  } catch (error) {
+    console.error("Error fetching all Pokémon details:", error);
+    throw error;
+  }
+};

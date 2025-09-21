@@ -8,9 +8,8 @@ import { ListIcon } from "../../components/viewIcons/ListIcon";
 import { GridIcon } from "../../components/viewIcons/GridIcon";
 import { useState, useEffect } from "react";
 import { useSearchParams, useOutletContext } from "react-router-dom";
-import { getPokemons, getPokemonDetails } from "../../services/api";
-import type { PokemonDetails } from "../../types/types";
-import { useFavorites } from "../../context/FavoritesContext";
+import { useFavorites } from "../../context/favoritesContext";
+import { usePokemonData } from "../../context/pokemonDataContext";
 
 interface ThemeContextType {
   theme: string;
@@ -18,41 +17,19 @@ interface ThemeContextType {
 }
 
 export const Home = () => {
-  const [pokemons, setPokemons] = useState<PokemonDetails[]>([]);
-  const [totalPages, setTotalPages] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialPage = Number(searchParams.get("page")) || 1;
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const POKEMONS_PER_PAGE = 21;
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
-  // const [isFavorite, setIsFavorite] = useState<number[]>([]);
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
-  const { theme, toggleTheme } = useOutletContext<ThemeContextType>();
   const [layout, setLayout] = useState("grid");
+
+  const { theme, toggleTheme } = useOutletContext<ThemeContextType>();
   const { favorites, toggleFavorite } = useFavorites();
+  const { allPokemons } = usePokemonData();
 
-  useEffect(() => {
-    const fetchPokemons = async () => {
-      const offset = (currentPage - 1) * POKEMONS_PER_PAGE;
-
-      const listData = await getPokemons(POKEMONS_PER_PAGE, offset);
-
-      const detailPromises = listData.results.map((pokemon) => {
-        return getPokemonDetails(pokemon.name);
-      });
-      const pokemonDetailsData = await Promise.all(detailPromises);
-
-      setPokemons(pokemonDetailsData);
-
-      if (totalPages === 0) {
-        const total = Math.ceil(listData.count / POKEMONS_PER_PAGE);
-        setTotalPages(total);
-      }
-    };
-
-    fetchPokemons();
-  }, [currentPage]);
+  const POKEMONS_PER_PAGE = 21;
 
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages) return;
@@ -65,34 +42,29 @@ export const Home = () => {
     setActiveFilters(selectedTypes);
   };
 
-  // const handleToggleFavorite = (pokemonId: number) => {
-  //   setIsFavorite((currentSelectedLike) => {
-  //     if (currentSelectedLike.includes(pokemonId)) {
-  //       return currentSelectedLike.filter((id) => id !== pokemonId);
-  //     } else {
-  //       return [...currentSelectedLike, pokemonId];
-  //     }
-  //   });
-  // };
-
-  let pokemonsToDisplay = pokemons;
-
-  // if (showOnlyFavorites) {
-  //   pokemonsToDisplay = pokemonsToDisplay.filter((pokemon) =>
-  //     isFavorite.includes(pokemon.id)
-  //   );
-  // }
+  let filteredPokemons = allPokemons;
 
   if (showOnlyFavorites) {
-    pokemonsToDisplay = favorites;
+    filteredPokemons = filteredPokemons.filter((pokemon) =>
+      favorites.includes(pokemon.id)
+    );
   }
 
   if (activeFilters.length > 0) {
-    pokemonsToDisplay = pokemonsToDisplay.filter((pokemon) => {
+    filteredPokemons = filteredPokemons.filter((pokemon) => {
       const pokemonTypes = pokemon.types.map((typeInfo) => typeInfo.type.name);
       return activeFilters.some((filter) => pokemonTypes.includes(filter));
     });
   }
+
+  const totalPages = Math.ceil(filteredPokemons.length / POKEMONS_PER_PAGE);
+
+  const startIndex = (currentPage - 1) * POKEMONS_PER_PAGE;
+  const endIndex = startIndex + POKEMONS_PER_PAGE;
+  const paginatedAndFilteredPokemons = filteredPokemons.slice(
+    startIndex,
+    endIndex
+  );
 
   const changeLayout = () => {
     setLayout(layout === "grid" ? "list" : "grid");
@@ -136,7 +108,10 @@ export const Home = () => {
           </button>
           <button
             className="button-container"
-            onClick={() => setShowOnlyFavorites(!showOnlyFavorites)}
+            onClick={() => {
+              setShowOnlyFavorites(!showOnlyFavorites);
+              setCurrentPage(1);
+            }}
           >
             <span className="button-label">Favorites</span>
             <svg
@@ -170,7 +145,7 @@ export const Home = () => {
         </div>
       </div>
       <div className={layout === "grid" ? "grid-container" : "list-container"}>
-        {pokemonsToDisplay.length === 0 ? (
+        {paginatedAndFilteredPokemons.length === 0 ? (
           <div className="empty-state-message">
             <p className="state-message">No Pokémon match your criteria.</p>
             <p className="state-message">
@@ -178,12 +153,12 @@ export const Home = () => {
             </p>
           </div>
         ) : (
-          pokemonsToDisplay.map((pokemon) => (
+          paginatedAndFilteredPokemons.map((pokemon) => (
             <Card
               key={pokemon.id}
               pokemonData={pokemon}
-              onToggleFavorite={() => toggleFavorite(pokemon)}
-              isFavorite={favorites.some((fav) => fav.id === pokemon.id)}
+              onToggleFavorite={() => toggleFavorite(pokemon.id)}
+              isFavorite={favorites.includes(pokemon.id)}
               layout={layout}
             />
           ))
@@ -223,7 +198,9 @@ export const Home = () => {
             <path d="M20.0006 10.1109V14.1109H11.0006L14.5006 17.6109L12.0806 20.0309L4.16064 12.1109L12.0806 4.19092L14.5006 6.61092L11.0006 10.1109H20.0006Z" />
           </svg>
         </button>
-        <span className="actual-page">Página {currentPage}</span>
+        <span className="actual-page">
+          Página {currentPage} de {totalPages}
+        </span>
         <button
           className="arrow-pagination button-container"
           onClick={() => handlePageChange(currentPage + 1)}
