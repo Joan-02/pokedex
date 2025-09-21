@@ -1,12 +1,7 @@
 import "./typeFilterButton.css";
 import { CheckboxCheckedIcon } from "../checkBoxIcon/checkboxCheckedIcon";
 import { CheckboxIcon } from "../checkBoxIcon/checkboxIcon";
-
-interface TypeFilterButtonProps {
-  typeName: string;
-  isActive: boolean;
-  onClick: (name: string) => void;
-}
+import type { TypeFilterButtonProps } from "../../types/types";
 
 export const TypeFilterButton = ({
   typeName,

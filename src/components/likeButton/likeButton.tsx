@@ -1,9 +1,5 @@
 import "./LikeButton.css";
-
-interface LikeButtonProps {
-  isFavorite: boolean;
-  onToggleFavorite: () => void;
-}
+import type { LikeButtonProps } from "../../types/types";
 
 export const LikeButton = ({
   onToggleFavorite,

@@ -10,11 +10,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useOutletContext } from "react-router-dom";
 import { useFavorites } from "../../context/favoritesContext";
 import { usePokemonData } from "../../context/pokemonDataContext";
-
-interface ThemeContextType {
-  theme: string;
-  toggleTheme: () => void;
-}
+import type { ThemeContextType } from "../../types/types";
 
 export const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();

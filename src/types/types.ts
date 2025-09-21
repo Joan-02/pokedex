@@ -50,3 +50,25 @@ export interface PokemonDetails {
     };
   };
 }
+
+export interface FiltersModalProps {
+  onClose: () => void;
+  onApplyFilters: (selectedTypes: string[]) => void;
+  initialSelectedTypes: string[];
+}
+
+export interface LikeButtonProps {
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
+}
+
+export interface TypeFilterButtonProps {
+  typeName: string;
+  isActive: boolean;
+  onClick: (name: string) => void;
+}
+
+export interface ThemeContextType {
+  theme: string;
+  toggleTheme: () => void;
+}

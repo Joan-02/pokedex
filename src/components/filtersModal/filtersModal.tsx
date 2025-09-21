@@ -2,12 +2,7 @@ import { TypeFilterButton } from "../typeFilterButton/typeFilterButton";
 import "./filtersModal.css";
 import { useState } from "react";
 import { POKEMON_TYPES } from "../../constants/constants";
-
-interface FiltersModalProps {
-  onClose: () => void;
-  onApplyFilters: (selectedTypes: string[]) => void;
-  initialSelectedTypes: string[];
-}
+import type { FiltersModalProps } from "../../types/types";
 
 export const FiltersModal = ({
   onClose,

@@ -48,9 +48,6 @@ npm run build
 
 # preview del build
 npm run preview
-
-# ejecutar tests (si tienes vitest)
-npm run test
 ```
 
 > Si usas Yarn cambia `npm` por `yarn`.
