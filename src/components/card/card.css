@@ -79,6 +79,12 @@
 .pokemon-card__info {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+}
+
+.pokemon-card__info-list {
+  display: flex;
+  justify-content: space-between;
   width: 50%;
 }
 
@@ -128,6 +134,14 @@
 @media (width < 650px) {
   .pokemon-card__info {
     display: flex;
+    flex-direction: column-reverse;
+    gap: 6px;
+  }
+
+  .pokemon-card__info-list {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
     flex-direction: column-reverse;
     gap: 6px;
   }
