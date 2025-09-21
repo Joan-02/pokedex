@@ -134,7 +134,6 @@
 @media (width < 650px) {
   .pokemon-card__info {
     display: flex;
-    flex-direction: column-reverse;
     gap: 6px;
   }
 
