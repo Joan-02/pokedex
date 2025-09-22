@@ -41,9 +41,9 @@ export const Home = () => {
   let filteredPokemons = allPokemons;
 
   if (showOnlyFavorites) {
-    filteredPokemons = filteredPokemons.filter((pokemon) =>
-      favorites.includes(pokemon.id)
-    );
+    filteredPokemons = filteredPokemons.filter((pokemon) => {
+      return favorites.includes(pokemon.id);
+    });
   }
 
   if (activeFilters.length > 0) {
@@ -57,10 +57,9 @@ export const Home = () => {
 
   const startIndex = (currentPage - 1) * POKEMONS_PER_PAGE;
   const endIndex = startIndex + POKEMONS_PER_PAGE;
-  const paginatedAndFilteredPokemons = filteredPokemons.slice(
-    startIndex,
-    endIndex
-  );
+  const paginatedAndFilteredPokemons = showOnlyFavorites
+    ? filteredPokemons
+    : filteredPokemons.slice(startIndex, endIndex);
 
   const changeLayout = () => {
     setLayout(layout === "grid" ? "list" : "grid");
